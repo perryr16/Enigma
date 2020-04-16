@@ -1,6 +1,6 @@
 class Encrypt
 
-  attr_reader :message, :a_code, :b_code, :c_code, :d_code
+  attr_reader :message
   def initialize
     @message = []
   end
@@ -15,16 +15,31 @@ class Encrypt
     @message.join(" ").split("")
   end
 
-
-
-  def split_4th_index
-    @a_code = []; @b_code = []; @c_code = []; @d_code = []
+  def split_4th
+    a_code = []; b_code = []; c_code = []; d_code = []
     split_characters.each_with_index do |character, index|
-      @a_code << character if index % 4 == 0
-      @b_code << character if index % 4 == 1
-      @c_code << character if index % 4 == 2
-      @d_code << character if index % 4 == 3
+      a_code << character if index % 4 == 0
+      b_code << character if index % 4 == 1
+      c_code << character if index % 4 == 2
+      d_code << character if index % 4 == 3
     end
+    [a_code, b_code, c_code, d_code]
+  end
+
+  def a1_z26
+    alpha = ("a".."z").to_a << " "
+    numeric = (1..27).to_a
+    Hash[alpha.zip(numeric)]
+  end
+
+  def shift(code, key)
+
+    binding.pry
+  end
+
+
+  def zip_together
+    split_4th[0].zip(split_4th[1], split_4th[2], split_4th[3]).join
   end
 
 
