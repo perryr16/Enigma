@@ -1,8 +1,12 @@
+require 'simplecov'
+SimpleCov.start
 require 'minitest/autorun'
 require 'minitest/pride'
+require 'pry'
+require 'mocha/minitest'
 require './lib/encrypt'
 
-require 'pry'
+
 
 class EncryptTest < Minitest::Test
 
@@ -17,7 +21,6 @@ class EncryptTest < Minitest::Test
 
   def test_it_returns_a_message_to_encrypt_from_txt
     assert_equal ["brown fox?", "sleepy dog! end"], @encrypt.message
-
   end
 
   def test_it_returns_a_split_list_of_characters
@@ -75,5 +78,14 @@ class EncryptTest < Minitest::Test
     expected = "ctr obisy?cwmghtzbgsh!ciof"
     numeric_message = @encrypt.zip_together
     assert_equal  expected, @encrypt.to_alpha(numeric_message)
+  end
+
+  def test_today_returns_date_as_integer
+    assert_equal 160420, @encrypt.today
+  end
+
+  def test_encrypt_method
+    skip
+    assert_equal "", @encrypt.encrypt(message, 01)
   end
 end

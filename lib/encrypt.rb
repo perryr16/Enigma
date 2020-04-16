@@ -1,3 +1,4 @@
+require 'date'
 class Encrypt
 
   attr_reader :message
@@ -13,17 +14,6 @@ class Encrypt
 
   def split_characters
     @message.join(" ").split("")
-  end
-
-  def split_4th
-    a_code = []; b_code = []; c_code = []; d_code = []
-    split_characters.each_with_index do |character, index|
-      a_code << character if index % 4 == 0
-      b_code << character if index % 4 == 1
-      c_code << character if index % 4 == 2
-      d_code << character if index % 4 == 3
-    end
-    [a_code, b_code, c_code, d_code]
   end
 
   def a_one
@@ -46,6 +36,17 @@ class Encrypt
         letter
       end
     end
+  end
+
+  def split_4th
+    a_code = []; b_code = []; c_code = []; d_code = []
+    split_characters.each_with_index do |character, index|
+      a_code << character if index % 4 == 0
+      b_code << character if index % 4 == 1
+      c_code << character if index % 4 == 2
+      d_code << character if index % 4 == 3
+    end
+    [a_code, b_code, c_code, d_code]
   end
 
   def split_4th
@@ -87,9 +88,12 @@ class Encrypt
     end.join
   end
 
+  def today
+    Date.today.strftime("%d%m%y").to_i
+  end
 
-
-
-
+  def encrypt(message, key, date = today)
+    binding.pry
+  end
 
 end
