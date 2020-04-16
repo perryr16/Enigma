@@ -88,9 +88,6 @@ class Encrypt
     end.join
   end
 
-  def today
-    Date.today.strftime("%d%m%y").to_i
-  end
 
   def encrypt(message, key, date = today)
     binding.pry

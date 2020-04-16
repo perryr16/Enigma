@@ -80,9 +80,6 @@ class EncryptTest < Minitest::Test
     assert_equal  expected, @encrypt.to_alpha(numeric_message)
   end
 
-  def test_today_returns_date_as_integer
-    assert_equal 160420, @encrypt.today
-  end
 
   def test_encrypt_method
     skip
