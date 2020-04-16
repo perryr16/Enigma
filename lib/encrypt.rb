@@ -32,6 +32,27 @@ class Encrypt
     Hash[alpha.zip(numeric)]
   end
 
+  def to_numeric
+    split_characters.map do |letter|
+      if !a1_z26[letter].nil?
+         a1_z26[letter]
+      else
+        letter
+      end
+    end
+  end
+
+  def split_4th
+    a_code = []; b_code = []; c_code = []; d_code = []
+    to_numeric.each_with_index do |character, index|
+      a_code << character if index % 4 == 0
+      b_code << character if index % 4 == 1
+      c_code << character if index % 4 == 2
+      d_code << character if index % 4 == 3
+    end
+    [a_code, b_code, c_code, d_code]
+  end
+
   def shift(code, key)
 
     binding.pry

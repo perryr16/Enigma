@@ -25,12 +25,6 @@ class EncryptTest < Minitest::Test
     assert_equal expected, @encrypt.split_characters
   end
 
-  def test_it_creates_arrays_every_4th_position
-    assert_equal ["b", "n", "x", "l", "y", "g", "n"], @encrypt.split_4th[0]
-    assert_equal ["r", " ", "?", "e", " ", "!", "d"], @encrypt.split_4th[1]
-    assert_equal ["o", "f", " ", "e", "d", " "], @encrypt.split_4th[2]
-    assert_equal ["w", "o", "s", "p", "o", "e"], @encrypt.split_4th[3]
-  end
 
   def test_it_zips_back_together
     assert_equal "brown fox? sleepy dog! end", @encrypt.zip_together
@@ -44,7 +38,20 @@ class EncryptTest < Minitest::Test
     assert_equal expected, @encrypt.a1_z26
   end
 
+  def test_it_returns_code_in_numeric_form
+    expected = [2, 18, 15, 23, 14, 27, 6, 15, 24, "?", 27, 19, 12, 5, 5, 16, 25, 27, 4, 15, 7, "!", 27, 5, 14, 4]
+    assert_equal expected, @encrypt.to_numeric
+  end
+
+  def test_it_creates_arrays_every_4th_position
+    assert_equal ["b", "n", "x", "l", "y", "g", "n"], @encrypt.split_4th(message)[0]
+    assert_equal ["r", " ", "?", "e", " ", "!", "d"], @encrypt.split_4th(message)[1]
+    assert_equal ["o", "f", " ", "e", "d", " "], @encrypt.split_4th(message)[2]
+    assert_equal ["w", "o", "s", "p", "o", "e"], @encrypt.split_4th(message)[3]
+  end
+
   def test_it_shifts_letters
+    skip
     @encrypt.shift(@encrypt.split_4th[0], 1)
   end
 
