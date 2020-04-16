@@ -26,16 +26,22 @@ class Encrypt
     [a_code, b_code, c_code, d_code]
   end
 
-  def a1_z26
+  def a_one
     alpha = ("a".."z").to_a << " "
-    numeric = (1..27).to_a
+    numeric = (0..26).to_a
     Hash[alpha.zip(numeric)]
+  end
+
+  def one_a
+    numeric = (0..26).to_a
+    alpha = ("a".."z").to_a << " "
+    Hash[numeric.zip(alpha)]
   end
 
   def to_numeric
     split_characters.map do |letter|
-      if !a1_z26[letter].nil?
-         a1_z26[letter]
+      if !a_one[letter].nil?
+         a_one[letter]
       else
         letter
       end
@@ -53,15 +59,36 @@ class Encrypt
     [a_code, b_code, c_code, d_code]
   end
 
-  def shift(code, key)
+   def shift(code, key)
+     code.map do |number|
+      if number.is_a?(Integer)
+        ( number + key % 27) % 27
+      else
+         number
+      end
+    end
+   end
 
-    binding.pry
+   def zip_together
+     one_code = shift(split_4th[0], 1)
+     two_code = shift(split_4th[1], 2)
+     three_code = shift(split_4th[2], 3)
+     four_code = shift(split_4th[3], 4)
+     one_code.zip(two_code, three_code, four_code).flatten.compact
+   end
+
+  def to_alpha(numbers)
+    numbers.map do |num|
+      if !one_a[num].nil?
+         one_a[num]
+      else
+        num
+      end
+    end.join
   end
 
 
-  def zip_together
-    split_4th[0].zip(split_4th[1], split_4th[2], split_4th[3]).join
-  end
+
 
 
 
