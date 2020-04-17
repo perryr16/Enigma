@@ -35,17 +35,19 @@ class ShiftableTest < Minitest::Test
     #9281
     assert_equal [9,2,8,1], shiftable.date_squared(shiftable.today)
   end
-  #
-  # def test_offests
-  #   shiftable = Shiftable.new
-  #   Date.stubs(:today).returns(Date.new(1991, 05, 13))
-  #   #9281
-  #   date_squared = shiftable.date_squared(shiftable.today)
-  #   assert_equal 9, shiftable.offsets(date_squared)[0]
-  #   assert_equal 2, shiftable.offsets(date_squared)[1]
-  #   assert_equal 8, shiftable.offsets(date_squared)[2]
-  #   assert_equal 1, shiftable.offsets(date_squared)[3]
-  # end
+
+  def test_offests
+    shiftable = Encrypt.new
+    shiftable.extend(Shiftable)
+
+    Date.stubs(:today).returns(Date.new(1991, 05, 13))
+    #9281
+    date_squared = shiftable.date_squared(shiftable.today)
+    assert_equal 9, shiftable.offsets(date_squared)[0]
+    assert_equal 2, shiftable.offsets(date_squared)[1]
+    assert_equal 8, shiftable.offsets(date_squared)[2]
+    assert_equal 1, shiftable.offsets(date_squared)[3]
+  end
   #
   # def test_it_returns_a_5_digit_string
   #   shiftable = Shiftable.new
