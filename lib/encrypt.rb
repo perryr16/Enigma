@@ -1,7 +1,8 @@
 require 'date'
-require_relative 'key_date'
+require_relative 'shiftable'
 
-class Encrypt < KeyDate
+class Encrypt
+  include Shiftable
 
   attr_reader :message
   def initialize

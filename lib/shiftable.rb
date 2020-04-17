@@ -1,4 +1,4 @@
-class KeyDate
+module Shiftable
 
   attr_reader :keys,
               :offsets,
