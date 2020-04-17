@@ -28,7 +28,7 @@ class KeyDateTest < Minitest::Test
     key_date = KeyDate.new
     Date.stubs(:today).returns(Date.new(1991, 05, 13))
     #9281
-    assert_equal [9,2,8,1], key_date.date_squared
+    assert_equal [9,2,8,1], key_date.date_squared(key_date.today)
   end
 
   def test_offests

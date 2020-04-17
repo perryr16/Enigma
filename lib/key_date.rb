@@ -15,7 +15,7 @@ class KeyDate
   end
 
   def date_squared(date)
-    (date ** 2).digits[0..3].reverse
+    (date.to_i ** 2).digits[0..3].reverse
   end
 
   def offsets(date_squared)

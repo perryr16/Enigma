@@ -25,7 +25,7 @@ class EncryptTest < Minitest::Test
 
   def test_it_returns_a_split_list_of_characters
     expected = ["b", "r", "o", "w", "n", " ", "f", "o", "x", "?", " ", "s", "l", "e", "e", "p", "y", " ", "d", "o", "g", "!", " ", "e", "n", "d"]
-    assert_equal expected, @encrypt.split_characters
+    assert_equal expected, @encrypt.split_characters(@encrypt.message)
   end
 
   def test_it_creates_a_hash_of_aplha_to_numbers
@@ -46,21 +46,24 @@ class EncryptTest < Minitest::Test
 
   def test_it_transforms_alpha_to_numeric
     expected = [1, 17, 14, 22, 13, 26, 5, 14, 23, "?", 26, 18, 11, 4, 4, 15, 24, 26, 3, 14, 6, "!", 26, 4, 13, 3]
-    assert_equal expected, @encrypt.to_numeric
+    assert_equal expected, @encrypt.to_numeric(@encrypt.message)
   end
 
   def test_it_creates_arrays_every_4th_position
-    assert_equal [1, 13, 23, 11, 24, 6, 13], @encrypt.split_4th[0]
-    assert_equal [17, 26, "?", 4, 26, "!", 3], @encrypt.split_4th[1]
-    assert_equal [14, 5, 26, 4, 3, 26] , @encrypt.split_4th[2]
-    assert_equal [22, 14, 18, 15, 14, 4], @encrypt.split_4th[3]
+    message = @encrypt.message
+    assert_equal [1, 13, 23, 11, 24, 6, 13], @encrypt.split_4th(message)[0]
+    assert_equal [17, 26, "?", 4, 26, "!", 3], @encrypt.split_4th(message)[1]
+    assert_equal [14, 5, 26, 4, 3, 26] , @encrypt.split_4th(message)[2]
+    assert_equal [22, 14, 18, 15, 14, 4], @encrypt.split_4th(message)[3]
   end
 
   def test_it_shifts_letters
-    a_code = @encrypt.split_4th[0]
-    b_code = @encrypt.split_4th[1]
-    c_code = @encrypt.split_4th[2]
-    d_code = @encrypt.split_4th[3]
+    message = @encrypt.message
+
+    a_code = @encrypt.split_4th(message)[0]
+    b_code = @encrypt.split_4th(message)[1]
+    c_code = @encrypt.split_4th(message)[2]
+    d_code = @encrypt.split_4th(message)[3]
     assert_equal [2, 14, 24, 12, 25, 7, 14], @encrypt.shift(a_code, 1)
     assert_equal [2, 14, 24, 12, 25, 7, 14], @encrypt.shift(a_code, 28)
     assert_equal [19, 1, "?", 6, 1, "!", 5], @encrypt.shift(b_code, 2)
@@ -70,19 +73,30 @@ class EncryptTest < Minitest::Test
 
 
   def test_it_zips_back_together
+    message = @encrypt.message
+
     expected = [2, 19, 17, 26, 14, 1, 8, 18, 24, "?", 2, 22, 12, 6, 7, 19, 25, 1, 6, 18, 7, "!", 2, 8, 14, 5]
-    assert_equal expected, @encrypt.zip_together
+    assert_equal expected, @encrypt.zip_together(message, 1,2,3,4)
   end
 
   def test_it_transforms_numeric_to_alpha
+    message = @encrypt.message
+
     expected = "ctr obisy?cwmghtzbgsh!ciof"
-    numeric_message = @encrypt.zip_together
+    numeric_message = @encrypt.zip_together(message, 1,2,3,4)
     assert_equal  expected, @encrypt.to_alpha(numeric_message)
   end
 
 
   def test_encrypt_method
-    skip
-    assert_equal "", @encrypt.encrypt(message, 01)
+
+    assert_equal "v rw", @encrypt.encrypt("abcd", "12345", "130591")
+    assert_equal "rbjv", @encrypt.encrypt("abcd", "12345")
+    # @encrypt.stubs(:a_shift).returns(1)
+    # @encrypt.stubs(:b_shift).returns(2)
+    # @encrypt.stubs(:c_shift).returns(3)
+    # @encrypt.stubs(:d_shift).returns(4)
+    # assert_equal "ctr obisy?cwmghtzbgsh!ciof", @encrypt.encrypt("brown fox? sleepy dog! end", 01234)
+
   end
 end
