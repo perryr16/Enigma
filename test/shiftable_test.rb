@@ -48,14 +48,16 @@ class ShiftableTest < Minitest::Test
     assert_equal 8, shiftable.offsets(date_squared)[2]
     assert_equal 1, shiftable.offsets(date_squared)[3]
   end
-  #
-  # def test_it_returns_a_5_digit_string
-  #   shiftable = Shiftable.new
-  #   assert_equal 5, shiftable.five_digit.length
-  #   assert_equal true, shiftable.five_digit.to_i < 100000
-  #   assert_equal true, shiftable.five_digit.to_i > 0
-  # end
-  #
+
+  def test_it_returns_a_5_digit_string
+    shiftable = Encrypt.new
+    shiftable.extend(Shiftable)
+    
+    assert_equal 5, shiftable.five_digit.length
+    assert_equal true, shiftable.five_digit.to_i < 100000
+    assert_equal true, shiftable.five_digit.to_i > 0
+  end
+
   # def test_keys
   #   shiftable = Shiftable.new
   #   shiftable.stubs(:five_digit).returns("01020")
