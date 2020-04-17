@@ -17,7 +17,7 @@ class EnigmaTest < Minitest::Test
 
   def test_it_encrypts_message
     enigma =  Enigma.new
-    # binding.pry
+  #   # binding.pry
     expected = {:encryption => "v rw", :key=>"12345", :date=>"130591"}
     assert_equal expected, enigma.encrypt("abcd", "12345", "130591")
     expected = {:encryption => "v rw!!!", :key=>"12345", :date=>"130591"}
@@ -43,5 +43,11 @@ class EnigmaTest < Minitest::Test
     assert_equal expected, enigma.decrypt("sbjv", "12345")
 
   end
+
+  # def test_encrypt_runner_method
+  #   enigma =  Enigma.new
+  #
+  #   enigma.encryption_runner
+  # end
 
 end

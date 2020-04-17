@@ -6,11 +6,16 @@ class EncryptionAlgorithm
   include Shiftable
   include AlphaNumable
 
-  # attr_reader :message
+  attr_reader :message
   def initialize
-    # @message = []
+    @message = []
   end
 
+  def read_txt(filename)
+    # filename = "./text/secret_message.txt"
+    File.open(filename).each {|line| @message << line.downcase}
+    @message.map {|line| line.slice!("\n")}
+  end
 
   def split_characters(message)
     message = message.join(" ") if message.is_a?(Array)

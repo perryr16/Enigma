@@ -12,7 +12,8 @@ class EncryptTest < Minitest::Test
 
   def setup
     @encrypt = EncryptionAlgorithm.new
-    @encrypt.read_txt
+    filename = "./text/secret_message.txt"
+    @encrypt.read_txt(filename)
   end
 
   def test_it_exists
