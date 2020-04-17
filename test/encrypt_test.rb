@@ -4,19 +4,19 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require 'pry'
 require 'mocha/minitest'
-require './lib/encrypt'
+require './lib/encryption_algorithm'
 
 
 
 class EncryptTest < Minitest::Test
 
   def setup
-    @encrypt = Encrypt.new
+    @encrypt = EncryptionAlgorithm.new
     @encrypt.read_txt
   end
 
   def test_it_exists
-    assert_instance_of Encrypt, @encrypt
+    assert_instance_of EncryptionAlgorithm, @encrypt
   end
 
   def test_it_returns_a_message_to_encrypt_from_txt

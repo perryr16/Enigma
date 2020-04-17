@@ -3,7 +3,7 @@ SimpleCov.start
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/shiftable'
-require './lib/encrypt'
+require './lib/encryption_algorithm'
 require 'mocha/minitest'
 
 require 'pry'
@@ -11,13 +11,13 @@ require 'pry'
 class ShiftableTest < Minitest::Test
 
   def test_it_exists
-    shiftable = Encrypt.new
+    shiftable = EncryptionAlgorithm.new
     shiftable.extend(Shiftable)
-    assert_instance_of Encrypt, shiftable
+    assert_instance_of EncryptionAlgorithm, shiftable
   end
 
   def test_today_returns_date_as_integer
-    shiftable = Encrypt.new
+    shiftable = EncryptionAlgorithm.new
     shiftable.extend(Shiftable)
 
     # assert_equal 170420, shiftable.today
@@ -28,7 +28,7 @@ class ShiftableTest < Minitest::Test
   end
 
   def test_date_squared
-    shiftable = Encrypt.new
+    shiftable = EncryptionAlgorithm.new
     shiftable.extend(Shiftable)
 
     Date.stubs(:today).returns(Date.new(1991, 05, 13))
@@ -37,7 +37,7 @@ class ShiftableTest < Minitest::Test
   end
 
   def test_offests
-    shiftable = Encrypt.new
+    shiftable = EncryptionAlgorithm.new
     shiftable.extend(Shiftable)
 
     Date.stubs(:today).returns(Date.new(1991, 05, 13))
@@ -50,7 +50,7 @@ class ShiftableTest < Minitest::Test
   end
 
   def test_it_returns_a_5_digit_string
-    shiftable = Encrypt.new
+    shiftable = EncryptionAlgorithm.new
     shiftable.extend(Shiftable)
 
     assert_equal 5, shiftable.five_digit.length
@@ -59,7 +59,7 @@ class ShiftableTest < Minitest::Test
   end
 
   def test_keys
-    shiftable = Encrypt.new
+    shiftable = EncryptionAlgorithm.new
     shiftable.extend(Shiftable)
 
     shiftable.stubs(:five_digit).returns("01020")
@@ -71,9 +71,9 @@ class ShiftableTest < Minitest::Test
   end
 
   def test_shifts
-    shiftable = Encrypt.new
+    shiftable = EncryptionAlgorithm.new
     shiftable.extend(Shiftable)
-    
+
     shiftable.stubs(:five_digit).returns("01020")
     Date.stubs(:today).returns(Date.new(1991, 05, 13))
     number = shiftable.five_digit

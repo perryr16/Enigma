@@ -1,6 +1,6 @@
-require_relative 'encrypt'
+require_relative 'encryption_algorithm'
 
-class Enigma < Encrypt
+class Enigma < EncryptionAlgorithm
 
   def encrypt(message, key = nil, date = today)
     shifts(key, date)

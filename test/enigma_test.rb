@@ -2,7 +2,7 @@ require 'simplecov'
 SimpleCov.start
 require 'minitest/autorun'
 require 'minitest/pride'
-require './lib/encrypt'
+require './lib/encryption_algorithm'
 require './lib/enigma'
 require 'mocha/minitest'
 
