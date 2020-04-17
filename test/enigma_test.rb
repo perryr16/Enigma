@@ -57,10 +57,20 @@ class EnigmaTest < Minitest::Test
     assert_equal expected, message.downcase
   end
 
-  # def test_encrypt_runner_method
-  #   enigma =  Enigma.new
-  #
-  #   enigma.encryption_runner
-  # end
+  def test_encryption_runner
+
+    enigma =  Enigma.new
+    message = "dog"
+    # original_filepath = "./text/test_message.txt"
+    # encrypted_filepath = "./text/test_encryption.txt"
+    enigma.stubs(:original_filepath).returns("./text/test_message.txt")
+    enigma.stubs(:encrypted_filepath).returns("./text/test_encrypted.txt")
+    enigma.encryption_runner
+
+    expected = enigma.read_txt("./text/test_encrypted.txt")[0]
+    actual = enigma.encrypted_details[:encryption]
+    assert_equal expected, enigma.encrypted_details[:encryption]
+  end
+
 
 end

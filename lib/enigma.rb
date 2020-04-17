@@ -2,13 +2,14 @@ require_relative 'encryption_algorithm'
 
 class Enigma < EncryptionAlgorithm
 
-  attr_reader :message
+  attr_reader :message, :encrypted_details
   def initialize
-    @message = []
+
   end
 
   def read_txt(filename)
     # filename = "./text/secret_message.txt"
+    @message = []
     File.open(filename).each {|line| @message << line.downcase}
     @message.map do |line|
       line.sub("\n", "")
@@ -43,17 +44,25 @@ class Enigma < EncryptionAlgorithm
     file.close
   end
 
+  def original_filepath
+    user_input
+  end
+
+  def encryption_filepath
+    user_input
+  end
+
   def encryption_runner
     puts "Enter filename with message to encrypt"
-    original_filename = user_input
+    original_filepath
     puts "Enter filename to store the enctyped message"
-    encryped_filepath = user_inpt
+    encrypted_filepath
 
-    message = read_txt(original_filename)
-    encrypted_details = encrypt(message)
-    puts "#{encrypted_details[:encryption]} with the key #{encrypted_details[:key]} and date #{encrypted_details[:date]}"
+    message = read_txt(original_filepath)
+    @encrypted_details = encrypt(message)
+    puts "#{@encrypted_details[:encryption]} with the key #{@encrypted_details[:key]} and date #{@encrypted_details[:date]}"
 
-    encryped_details_encryption
+    write_to_file(@encrypted_details[:encryption], encrypted_filepath)
   end
 
 
