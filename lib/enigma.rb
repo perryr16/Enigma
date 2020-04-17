@@ -2,7 +2,7 @@ require_relative 'encryption_algorithm'
 
 class Enigma < EncryptionAlgorithm
 
-  attr_reader :message, :encrypted_details
+  attr_reader :message, :encrypted_details, :decrypted_details
   def initialize
 
   end
@@ -44,25 +44,44 @@ class Enigma < EncryptionAlgorithm
     file.close
   end
 
-  def original_filepath
+  def original_input
     user_input
   end
 
-  def encryption_filepath
+  def encrypted_input
     user_input
   end
 
   def encryption_runner
     puts "Enter filename with message to encrypt"
-    original_filepath
+    message_file = original_input
     puts "Enter filename to store the enctyped message"
-    encrypted_filepath
+    encrypted_file = encrypted_input
 
-    message = read_txt(original_filepath)
+    message = read_txt(message_file)
+
     @encrypted_details = encrypt(message)
+
     puts "#{@encrypted_details[:encryption]} with the key #{@encrypted_details[:key]} and date #{@encrypted_details[:date]}"
 
-    write_to_file(@encrypted_details[:encryption], encrypted_filepath)
+    write_to_file(@encrypted_details[:encryption], encrypted_file)
+  end
+
+  def decryption_runner
+    puts "Enter filename with message to decrypt"
+    encrypted_file = original_input
+    puts "Enter filename to store the dectyped message"
+    decrypted_file = encrypted_input
+    puts "Enter decryption key"
+    de_key = user_input
+    puts "Enter date"
+    de_date = user_input
+
+    message = read_txt(encrypted_file)
+    @decrypted_details = decrypt(message, de_key, de_date)
+    puts "#{@decrypted_details[:decryption]} with the key #{@decrypted_details[:key]} and date #{@decrypted_details[:date]}"
+
+    write_to_file(@encrypted_details[:decryption], decrypted_file)
   end
 
 

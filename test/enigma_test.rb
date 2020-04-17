@@ -60,23 +60,31 @@ class EnigmaTest < Minitest::Test
   def test_user_input
     enigma =  Enigma.new
     enigma.stubs(:user_input).returns("snow storm")
-    assert_equal "snow storm", enigma.original_filepath
-    assert_equal "snow storm", enigma.encryption_filepath
+    assert_equal "snow storm", enigma.original_input
+    assert_equal "snow storm", enigma.encrypted_input
   end
 
   def test_encryption_runner
-
+skip
     enigma =  Enigma.new
     message = "dog"
     # original_filepath = "./text/test_message.txt"
     # encrypted_filepath = "./text/test_encryption.txt"
-    enigma.stubs(:original_filepath).returns("./text/test_message.txt")
-    enigma.stubs(:encrypted_filepath).returns("./text/test_encrypted.txt")
+    enigma.stubs(:original_input).returns("./text/test_message.txt")
+    enigma.stubs(:encrypted_input).returns("./text/test_encrypted.txt")
     enigma.encryption_runner
 
     expected = enigma.read_txt("./text/test_encrypted.txt")[0]
     actual = enigma.encrypted_details[:encryption]
     assert_equal expected, enigma.encrypted_details[:encryption]
+  end
+
+  def test_all_of_it
+    enigma = Enigma.new
+
+    enigma.encryption_runner
+    enigma.decryption_runner
+
   end
 
 
