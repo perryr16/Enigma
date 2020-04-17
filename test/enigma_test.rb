@@ -46,6 +46,17 @@ class EnigmaTest < Minitest::Test
 
   end
 
+  def test_it_writes_to_file
+    enigma =  Enigma.new
+    message = "Why walk when you can eat cake?"
+    filepath = "./text/test_file.txt"
+
+    enigma.write_to_file(message, filepath)
+
+    expected = enigma.read_txt(filepath)[0]
+    assert_equal expected, message.downcase
+  end
+
   # def test_encrypt_runner_method
   #   enigma =  Enigma.new
   #

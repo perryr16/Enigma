@@ -37,14 +37,26 @@ class Enigma < EncryptionAlgorithm
       {decryption: decrypted, key: key, date: date.to_s}
   end
 
-  # def encryption_runner
-  #   puts "Enter filename with message to encrypt"
-  #   filename = user_input
-  #   message = read_txt(filename)
-  #   pry
-  #   encryped_details = encrypt(message)
-  #   puts "#{encrypt(message)[:encryption]} with the key #{encrypt(message)[:key]} and date #{encrypt(message)[:date]}"
-  # end
+  def write_to_file(message, filepath)
+    file = File.open(filepath, "w")
+    file.write(message)
+    file.close
+  end
+
+  def encryption_runner
+    puts "Enter filename with message to encrypt"
+    original_filename = user_input
+    puts "Enter filename to store the enctyped message"
+    encryped_filepath = user_inpt
+
+    message = read_txt(original_filename)
+    encrypted_details = encrypt(message)
+    puts "#{encrypted_details[:encryption]} with the key #{encrypted_details[:key]} and date #{encrypted_details[:date]}"
+
+    encryped_details_encryption
+  end
+
+
 
 
 end
