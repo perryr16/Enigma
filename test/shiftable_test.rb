@@ -61,7 +61,7 @@ class ShiftableTest < Minitest::Test
   def test_keys
     shiftable = Encrypt.new
     shiftable.extend(Shiftable)
-    
+
     shiftable.stubs(:five_digit).returns("01020")
     number = shiftable.five_digit
     assert_equal 1, shiftable.keys(number)[0]
@@ -69,31 +69,27 @@ class ShiftableTest < Minitest::Test
     assert_equal 2, shiftable.keys(number)[2]
     assert_equal 20, shiftable.keys(number)[3]
   end
-  #
-  # def test_shifts
-  #   shiftable = Shiftable.new
-  #   shiftable.stubs(:five_digit).returns("01020")
-  #   Date.stubs(:today).returns(Date.new(1991, 05, 13))
-  #   number = shiftable.five_digit
-  #
-  #   shiftable.shifts(number, shiftable.today)
-  #   assert_equal 10, shiftable.a_shift
-  #   assert_equal 12, shiftable.b_shift
-  #   assert_equal 10, shiftable.c_shift
-  #   assert_equal 21, shiftable.d_shift
-  #
-  #   shiftable.shifts(nil, shiftable.today)
-  #   assert_equal 10, shiftable.a_shift
-  #   assert_equal 12, shiftable.b_shift
-  #   assert_equal 10, shiftable.c_shift
-  #   assert_equal 21, shiftable.d_shift
-  # end
 
-  # def test_case_name
-  #   shiftable = Shiftable.new
-  #
-  #   binding.pry
-  # end
+  def test_shifts
+    shiftable = Encrypt.new
+    shiftable.extend(Shiftable)
+    
+    shiftable.stubs(:five_digit).returns("01020")
+    Date.stubs(:today).returns(Date.new(1991, 05, 13))
+    number = shiftable.five_digit
+
+    shiftable.shifts(number, shiftable.today)
+    assert_equal 10, shiftable.a_shift
+    assert_equal 12, shiftable.b_shift
+    assert_equal 10, shiftable.c_shift
+    assert_equal 21, shiftable.d_shift
+
+    shiftable.shifts(nil, shiftable.today)
+    assert_equal 10, shiftable.a_shift
+    assert_equal 12, shiftable.b_shift
+    assert_equal 10, shiftable.c_shift
+    assert_equal 21, shiftable.d_shift
+  end
 
 
 end
