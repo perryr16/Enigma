@@ -62,6 +62,16 @@ class Encrypt < KeyDate
     end
    end
 
+   def de_shift(code, shift)
+     code.map do |number|
+      if number.is_a?(Integer)
+        ( number - shift % 27) % 27
+      else
+         number
+      end
+    end
+   end
+
    def zip_together(message, a_shift, b_shift, c_shift, d_shift)
      one_code = shift(split_4th(message)[0], a_shift)
      two_code = shift(split_4th(message)[1], b_shift)
@@ -69,6 +79,15 @@ class Encrypt < KeyDate
      four_code = shift(split_4th(message)[3], d_shift)
      one_code.zip(two_code, three_code, four_code).flatten.compact
    end
+
+   def de_zip_together(message, a_shift, b_shift, c_shift, d_shift)
+     one_code = de_shift(split_4th(message)[0], a_shift)
+     two_code = de_shift(split_4th(message)[1], b_shift)
+     three_code = de_shift(split_4th(message)[2], c_shift)
+     four_code = de_shift(split_4th(message)[3], d_shift)
+     one_code.zip(two_code, three_code, four_code).flatten.compact
+   end
+
 
   def to_alpha(numbers)
     numbers.map do |num|
@@ -84,7 +103,18 @@ class Encrypt < KeyDate
   def encrypt(message, key = nil, date = today)
     shifts(key, date)
     numbers = zip_together(message, a_shift, b_shift, c_shift, d_shift)
-    to_alpha(numbers)
+    encrypted = to_alpha(numbers)
+    {encryption: encrypted, key: key, date: date.to_s}
+
+  end
+
+  def decrypt(code, key = nil, date = today)
+      shifts(key, date)
+      to_numeric(code)
+      split_4th(code)
+      numbers = de_zip_together(code, a_shift, b_shift, c_shift, d_shift)
+      decrypted = to_alpha(numbers)
+      {decryption: decrypted, key: key, date: date.to_s}
   end
 
 end

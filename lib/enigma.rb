@@ -1,13 +1,15 @@
 class Enigma
 
-
+  attr_reader :encrypter
   def initialize
     @encrypter = Encrypt.new
   end
 
-  def encrypt
+  def encrypt(message, key = nil, date = @encrypter.today)
+    @encrypter.encrypt(message, key, date)
+  end
 
-    @encrypter.read_txt
-      binding.pry
+  def decrypt(message, key = nil, date = @encrypter.today)
+    @encrypter.decrypt(message, key, date)
   end
 end
