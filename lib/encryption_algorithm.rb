@@ -2,7 +2,7 @@ require 'date'
 require_relative 'shiftable'
 require_relative 'alpha_numable'
 
-class Encrypt
+class EncryptionAlgorithm
   include Shiftable
   include AlphaNumable
 
@@ -11,8 +11,8 @@ class Encrypt
     @message = []
   end
 
-  def read_txt
-    filename = "./text/secret_message.txt"
+  def read_txt(filename)
+    # filename = "./text/secret_message.txt"
     File.open(filename).each {|line| @message << line.downcase}
     @message.map {|line| line.slice!("\n")}
   end
