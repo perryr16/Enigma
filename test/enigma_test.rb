@@ -57,6 +57,13 @@ class EnigmaTest < Minitest::Test
     assert_equal expected, message.downcase
   end
 
+  def test_user_input
+    enigma =  Enigma.new
+    enigma.stubs(:user_input).returns("snow storm")
+    assert_equal "snow storm", enigma.original_filepath
+    assert_equal "snow storm", enigma.encryption_filepath
+  end
+
   def test_encryption_runner
 
     enigma =  Enigma.new
