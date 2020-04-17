@@ -30,8 +30,10 @@ class EnigmaTest < Minitest::Test
     enigma.stubs(:b_shift).returns(2)
     enigma.stubs(:c_shift).returns(3)
     enigma.stubs(:d_shift).returns(4)
-    expected = {:encryption=>"ctr obisy?cwmghtzbgsh!ciof", :key=>nil, :date=>"170420"}
-    assert_equal expected, enigma.encrypt("brown fox? sleepy dog! end")
+    exp_encrypion = "ctr obisy?cwmghtzbgsh!ciof"
+    exp_date = "170420"
+    assert_equal exp_encrypion, enigma.encrypt("brown fox? sleepy dog! end")[:encryption]
+    assert_equal exp_date, enigma.encrypt("brown fox? sleepy dog! end")[:date]
   end
 
   def test_it_decrypts_message
