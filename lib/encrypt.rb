@@ -1,8 +1,10 @@
 require 'date'
 require_relative 'shiftable'
+require_relative 'alpha_numable'
 
 class Encrypt
   include Shiftable
+  include AlphaNumable
 
   attr_reader :message
   def initialize
@@ -18,18 +20,6 @@ class Encrypt
   def split_characters(message)
     message = message.join(" ") if message.is_a?(Array)
     message.split("")
-  end
-
-  def a_one
-    alpha = ("a".."z").to_a << " "
-    numeric = (0..26).to_a
-    Hash[alpha.zip(numeric)]
-  end
-
-  def one_a
-    numeric = (0..26).to_a
-    alpha = ("a".."z").to_a << " "
-    Hash[numeric.zip(alpha)]
   end
 
   def to_numeric(message)
