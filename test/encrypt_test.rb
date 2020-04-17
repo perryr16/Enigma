@@ -89,14 +89,28 @@ class EncryptTest < Minitest::Test
 
 
   def test_encrypt_method
+    expected = {:encryption => "v rw", :key=>"12345", :date=>"130591"}
+    assert_equal expected, @encrypt.encrypt("abcd", "12345", "130591")
+    expected = {:encryption => "v rw!!!", :key=>"12345", :date=>"130591"}
+    assert_equal expected, @encrypt.encrypt("abcd!!!", "12345", "130591")
+    expected = {:encryption => "sbjv", :key=>"12345", :date=>"170420"}
+    assert_equal expected, @encrypt.encrypt("abcd", "12345")
+    assert_equal true, @encrypt.encrypt("abcd").is_a?(Hash)
+    assert_equal true, @encrypt.encrypt("abcd")[:encryption].length == 4
+    @encrypt.stubs(:a_shift).returns(1)
+    @encrypt.stubs(:b_shift).returns(2)
+    @encrypt.stubs(:c_shift).returns(3)
+    @encrypt.stubs(:d_shift).returns(4)
+    expected = {:encryption=>"ctr obisy?cwmghtzbgsh!ciof", :key=>nil, :date=>"170420"}
+    assert_equal expected, @encrypt.encrypt("brown fox? sleepy dog! end")
 
-    assert_equal "v rw", @encrypt.encrypt("abcd", "12345", "130591")
-    assert_equal "rbjv", @encrypt.encrypt("abcd", "12345")
-    # @encrypt.stubs(:a_shift).returns(1)
-    # @encrypt.stubs(:b_shift).returns(2)
-    # @encrypt.stubs(:c_shift).returns(3)
-    # @encrypt.stubs(:d_shift).returns(4)
-    # assert_equal "ctr obisy?cwmghtzbgsh!ciof", @encrypt.encrypt("brown fox? sleepy dog! end", 01234)
+  end
+
+  def test_it_decrypts_message
+    expected = {:decryption=>"abcd", :key=>"12345", :date=>"130591"}
+    assert_equal expected, @encrypt.decrypt("v rw", "12345", "130591")
+    expected = {:decryption=>"abcd", :key=>"12345", :date=>"170420"}
+    assert_equal expected, @encrypt.decrypt("sbjv", "12345")
 
   end
 end
