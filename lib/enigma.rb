@@ -1,15 +1,17 @@
-class Enigma
+require_relative 'encrypt'
+
+class Enigma < Encrypt
 
   attr_reader :encrypter
   def initialize
-    @encrypter = Encrypt.new
+
   end
 
-  def encrypt(message, key = nil, date = @encrypter.today)
-    @encrypter.encrypt(message, key, date)
+  def encrypt(message, key = nil, date = today)
+
   end
 
-  def decrypt(message, key = nil, date = @encrypter.today)
-    @encrypter.decrypt(message, key, date)
+  def decrypt(message, key = nil, date = today)
+
   end
 end
