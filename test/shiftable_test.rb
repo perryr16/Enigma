@@ -52,21 +52,23 @@ class ShiftableTest < Minitest::Test
   def test_it_returns_a_5_digit_string
     shiftable = Encrypt.new
     shiftable.extend(Shiftable)
-    
+
     assert_equal 5, shiftable.five_digit.length
     assert_equal true, shiftable.five_digit.to_i < 100000
     assert_equal true, shiftable.five_digit.to_i > 0
   end
 
-  # def test_keys
-  #   shiftable = Shiftable.new
-  #   shiftable.stubs(:five_digit).returns("01020")
-  #   number = shiftable.five_digit
-  #   assert_equal 1, shiftable.keys(number)[0]
-  #   assert_equal 10, shiftable.keys(number)[1]
-  #   assert_equal 2, shiftable.keys(number)[2]
-  #   assert_equal 20, shiftable.keys(number)[3]
-  # end
+  def test_keys
+    shiftable = Encrypt.new
+    shiftable.extend(Shiftable)
+    
+    shiftable.stubs(:five_digit).returns("01020")
+    number = shiftable.five_digit
+    assert_equal 1, shiftable.keys(number)[0]
+    assert_equal 10, shiftable.keys(number)[1]
+    assert_equal 2, shiftable.keys(number)[2]
+    assert_equal 20, shiftable.keys(number)[3]
+  end
   #
   # def test_shifts
   #   shiftable = Shiftable.new
