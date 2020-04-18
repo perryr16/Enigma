@@ -18,18 +18,18 @@ class Enigma < EncryptionAlgorithm
     end
   end
 
-  def encrypt(message, enc_key = nil, date = today)
-    shifts(enc_key, date)
-    numbers = zip_together(message, a_shift, b_shift, c_shift, d_shift)
+  def encrypt(message, enc_key = nil, date = @shift_gen.today)
+    @shift_gen.shifts(enc_key, date)
+    numbers = zip_together(message, @shift_gen.a_shift, @shift_gen.b_shift, @shift_gen.c_shift, @shift_gen.d_shift)
     encrypted = to_alpha(numbers)
-    {encryption: encrypted, key: key, date: date.to_s}
+    {encryption: encrypted, key: @shift_gen.key, date: date.to_s}
   end
 
-  def decrypt(code, key = nil, date = today)
-      shifts(key, date)
+  def decrypt(code, key = nil, date = @shift_gen.today)
+      @shift_gen.shifts(key, date)
       to_numeric(code)
       split_4th(code)
-      numbers = de_zip_together(code, a_shift, b_shift, c_shift, d_shift)
+      numbers = de_zip_together(code, @shift_gen.a_shift, @shift_gen.b_shift, @shift_gen.c_shift, @shift_gen.d_shift)
       decrypted = to_alpha(numbers)
       {decryption: decrypted, key: key, date: date.to_s}
   end

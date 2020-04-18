@@ -31,11 +31,11 @@ class EnigmaTest < Minitest::Test
 
     assert_equal true, enigma.encrypt("abcd").is_a?(Hash)
     assert_equal true, enigma.encrypt("abcd")[:encryption].length == 4
-    enigma.stubs(:a_shift).returns(1)
-    enigma.stubs(:b_shift).returns(2)
-    enigma.stubs(:c_shift).returns(3)
-    enigma.stubs(:d_shift).returns(4)
-    enigma.stubs(:today).returns("170420")
+    enigma.shift_gen.stubs(:a_shift).returns(1)
+    enigma.shift_gen.stubs(:b_shift).returns(2)
+    enigma.shift_gen.stubs(:c_shift).returns(3)
+    enigma.shift_gen.stubs(:d_shift).returns(4)
+    enigma.shift_gen.stubs(:today).returns("170420")
     exp_encrypion = "ctr obisy?cwmghtzbgsh!ciof"
     exp_date = "170420"
     assert_equal exp_encrypion, enigma.encrypt("brown fox? sleepy dog! end")[:encryption]
@@ -47,7 +47,7 @@ class EnigmaTest < Minitest::Test
 
     expected = {:decryption=>"abcd", :key=>"12345", :date=>"130591"}
     assert_equal expected, enigma.decrypt("v rw", "12345", "130591")
-    enigma.stubs(:today).returns("170420")
+    enigma.shift_gen.stubs(:today).returns("170420")
     expected = {:decryption=>"abcd", :key=>"12345", :date=>"170420"}
     assert_equal expected, enigma.decrypt("sbjv", "12345")
 
