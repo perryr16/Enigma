@@ -22,14 +22,20 @@ class EnigmaTest < Minitest::Test
     assert_equal expected, enigma.encrypt("abcd", "12345", "130591")
     expected = {:encryption => "v rw!!!", :key=>"12345", :date=>"130591"}
     assert_equal expected, enigma.encrypt("abcd!!!", "12345", "130591")
+
     expected = {:encryption => "sbjv", :key=>"12345", :date=>"170420"}
-    assert_equal expected, enigma.encrypt("abcd", "12345")
+    # assert_equal expected, enigma.encrypt("abcd", "12345")
+    assert_equal "sbjv", enigma.encrypt("abcd", "12345")[:encryption]
+    assert_equal true, enigma.encrypt("abcd", "12345")[:key].length == 5
+    assert_equal true, enigma.encrypt("abcd", "12345")[:date].length == 6
+
     assert_equal true, enigma.encrypt("abcd").is_a?(Hash)
     assert_equal true, enigma.encrypt("abcd")[:encryption].length == 4
     enigma.stubs(:a_shift).returns(1)
     enigma.stubs(:b_shift).returns(2)
     enigma.stubs(:c_shift).returns(3)
     enigma.stubs(:d_shift).returns(4)
+    enigma.stubs(:today).returns("170420")
     exp_encrypion = "ctr obisy?cwmghtzbgsh!ciof"
     exp_date = "170420"
     assert_equal exp_encrypion, enigma.encrypt("brown fox? sleepy dog! end")[:encryption]
@@ -41,6 +47,7 @@ class EnigmaTest < Minitest::Test
 
     expected = {:decryption=>"abcd", :key=>"12345", :date=>"130591"}
     assert_equal expected, enigma.decrypt("v rw", "12345", "130591")
+    enigma.stubs(:today).returns("170420")
     expected = {:decryption=>"abcd", :key=>"12345", :date=>"170420"}
     assert_equal expected, enigma.decrypt("sbjv", "12345")
 
@@ -57,29 +64,31 @@ class EnigmaTest < Minitest::Test
     assert_equal expected, message.downcase
   end
 
-  def test_user_input
-    enigma =  Enigma.new
-    enigma.stubs(:user_input).returns("snow storm")
-    assert_equal "snow storm", enigma.original_input
-    assert_equal "snow storm", enigma.encrypted_input
-  end
+
 
   def test_encryption_runner
-skip
+
     enigma =  Enigma.new
-    message = "dog"
-    # original_filepath = "./text/test_message.txt"
-    # encrypted_filepath = "./text/test_encryption.txt"
-    enigma.stubs(:original_input).returns("./text/test_message.txt")
-    enigma.stubs(:encrypted_input).returns("./text/test_encrypted.txt")
+    enigma.stubs(:user_input).returns(["./text/test_message.txt", "./text/test_encrypted.txt"])
     enigma.encryption_runner
 
     expected = enigma.read_txt("./text/test_encrypted.txt")[0]
-    actual = enigma.encrypted_details[:encryption]
+
     assert_equal expected, enigma.encrypted_details[:encryption]
   end
 
+  def test_decryption_runner
+    enigma =  Enigma.new
+    enigma.stubs(:user_input).returns(["./text/test_encrypted.txt", "./text/test_decrypted.txt", "12345", "180420"])
+    enigma.decryption_runner
+
+    expected = enigma.read_txt("./text/test_decrypted.txt")[0]
+
+    assert_equal expected, enigma.decrypted_details[:decryption]
+  end
+
   def test_all_of_it
+    skip
     enigma = Enigma.new
 
     enigma.encryption_runner

@@ -1,3 +1,5 @@
+
+require 'pry'
 require_relative 'encryption_algorithm'
 
 class Enigma < EncryptionAlgorithm
@@ -16,17 +18,11 @@ class Enigma < EncryptionAlgorithm
     end
   end
 
-  def user_input
-    input = gets.chomp
-  end
-
-
   def encrypt(message, enc_key = nil, date = today)
     shifts(enc_key, date)
     numbers = zip_together(message, a_shift, b_shift, c_shift, d_shift)
     encrypted = to_alpha(numbers)
     {encryption: encrypted, key: key, date: date.to_s}
-
   end
 
   def decrypt(code, key = nil, date = today)
@@ -44,47 +40,37 @@ class Enigma < EncryptionAlgorithm
     file.close
   end
 
-  def original_input
-    user_input
-  end
-
-  def encrypted_input
-    user_input
+  def user_input
+    input = ARGV
   end
 
   def encryption_runner
-    puts "Enter filename with message to encrypt"
-    message_file = original_input
-    puts "Enter filename to store the enctyped message"
-    encrypted_file = encrypted_input
-
+    input = user_input
+    message_file = input[0]
+    encrypted_file = input[1]
     message = read_txt(message_file)
 
     @encrypted_details = encrypt(message)
-
-    puts "#{@encrypted_details[:encryption]} with the key #{@encrypted_details[:key]} and date #{@encrypted_details[:date]}"
-
+    puts "-------------"
+    puts "#{encrypted_file} with the key #{@encrypted_details[:key]} and date #{@encrypted_details[:date]}"
+    puts "-------------"
     write_to_file(@encrypted_details[:encryption], encrypted_file)
   end
 
   def decryption_runner
-    puts "Enter filename with message to decrypt"
-    encrypted_file = original_input
-    puts "Enter filename to store the dectyped message"
-    decrypted_file = encrypted_input
-    puts "Enter decryption key"
-    de_key = user_input
-    puts "Enter date"
-    de_date = user_input
+    input = user_input
+    encrypted_file = input[0]
+    decrypted_file = input[1]
+    de_key = input[2]
+    de_date = input[3]
+
 
     message = read_txt(encrypted_file)
     @decrypted_details = decrypt(message, de_key, de_date)
-    puts "#{@decrypted_details[:decryption]} with the key #{@decrypted_details[:key]} and date #{@decrypted_details[:date]}"
-
-    write_to_file(@encrypted_details[:decryption], decrypted_file)
+    puts "-------------"
+    puts "#{decrypted_file} with the key #{@decrypted_details[:key]} and date #{@decrypted_details[:date]}"
+    puts "-------------"
+    write_to_file(@decrypted_details[:decryption], decrypted_file)
   end
-
-
-
 
 end

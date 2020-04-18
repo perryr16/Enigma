@@ -11,12 +11,6 @@ class EncryptionAlgorithm
     @message = []
   end
 
-  def read_txt(filename)
-    # filename = "./text/secret_message.txt"
-    File.open(filename).each {|line| @message << line.downcase}
-    @message.map {|line| line.slice!("\n")}
-  end
-
   def split_characters(message)
     message = message.join(" ") if message.is_a?(Array)
     message.split("")
