@@ -39,7 +39,7 @@ class Enigma < EncryptionAlgorithm
   end
 
   def user_input
-    input = ARGV
+    ARGV
   end
 
   def encryption_runner
@@ -58,8 +58,8 @@ class Enigma < EncryptionAlgorithm
     input = user_input
     encrypted_file = input[0]
     decrypted_file = input[1]
-    de_key = input[2]
-    de_date = input[3]
+    de_key = input[2]; de_date = input[3]
+
     message = read_txt(encrypted_file)
     @decrypted_details = decrypt(message, de_key, de_date)
     # puts "#{decrypted_file} with the key #{@decrypted_details[:key]} and date #{@decrypted_details[:date]}"
