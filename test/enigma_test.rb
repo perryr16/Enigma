@@ -83,7 +83,6 @@ class EnigmaTest < Minitest::Test
     enigma.decryption_runner
 
     expected = enigma.read_txt("./text/test_decrypted.txt")[0]
-
     assert_equal expected, enigma.decrypted_details[:decryption]
   end
 
