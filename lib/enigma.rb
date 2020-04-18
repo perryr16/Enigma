@@ -1,3 +1,5 @@
+
+require 'pry'
 require_relative 'encryption_algorithm'
 
 class Enigma < EncryptionAlgorithm
@@ -15,11 +17,6 @@ class Enigma < EncryptionAlgorithm
       line.sub("\n", "")
     end
   end
-
-  def user_input
-    input = gets.chomp
-  end
-
 
   def encrypt(message, enc_key = nil, date = today)
     shifts(enc_key, date)
@@ -43,25 +40,25 @@ class Enigma < EncryptionAlgorithm
     file.close
   end
 
+  def user_input
+    input = ARGV
+  end
+
   def encryption_runner
-    puts "Enter: secret message path, encrypted message path"
     input = user_input
-    input = input.split(" ")
     message_file = input[0]
     encrypted_file = input[1]
     message = read_txt(message_file)
 
     @encrypted_details = encrypt(message)
     puts "-------------"
-    puts "#{@encrypted_details[:encryption]} with the key #{@encrypted_details[:key]} and date #{@encrypted_details[:date]}"
+    puts "#{encrypted_file} with the key #{@encrypted_details[:key]} and date #{@encrypted_details[:date]}"
     puts "-------------"
     write_to_file(@encrypted_details[:encryption], encrypted_file)
   end
 
   def decryption_runner
-    puts "Enter: encrypted message path, decrypted message path, key, date"
     input = user_input
-    input = input.split(" ")
     encrypted_file = input[0]
     decrypted_file = input[1]
     de_key = input[2]
@@ -71,12 +68,9 @@ class Enigma < EncryptionAlgorithm
     message = read_txt(encrypted_file)
     @decrypted_details = decrypt(message, de_key, de_date)
     puts "-------------"
-    puts "#{@decrypted_details[:decryption]} with the key #{@decrypted_details[:key]} and date #{@decrypted_details[:date]}"
+    puts "#{decrypted_file} with the key #{@decrypted_details[:key]} and date #{@decrypted_details[:date]}"
     puts "-------------"
     write_to_file(@decrypted_details[:decryption], decrypted_file)
   end
-
-
-
 
 end

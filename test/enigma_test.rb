@@ -69,8 +69,7 @@ class EnigmaTest < Minitest::Test
   def test_encryption_runner
 
     enigma =  Enigma.new
-    enigma.stubs(:user_input).returns("./text/test_message.txt ./text/test_encrypted.txt")
-    # enigma.stubs(:encrypted_input).returns("./text/test_encrypted.txt")
+    enigma.stubs(:user_input).returns(["./text/test_message.txt", "./text/test_encrypted.txt"])
     enigma.encryption_runner
 
     expected = enigma.read_txt("./text/test_encrypted.txt")[0]
@@ -79,10 +78,8 @@ class EnigmaTest < Minitest::Test
   end
 
   def test_decryption_runner
-
     enigma =  Enigma.new
-    enigma.stubs(:user_input).returns("./text/test_encrypted.txt ./text/test_decrypted.txt 12345 180420")
-    # enigma.stubs(:encrypted_input).returns("./text/test_encrypted.txt")
+    enigma.stubs(:user_input).returns(["./text/test_encrypted.txt", "./text/test_decrypted.txt", "12345", "180420"])
     enigma.decryption_runner
 
     expected = enigma.read_txt("./text/test_decrypted.txt")[0]
