@@ -1,14 +1,15 @@
 require 'date'
 require_relative 'shiftable'
-require_relative 'alpha_numable'
+require_relative 'alpha_num'
 
 class EncryptionAlgorithm
   include Shiftable
-  include AlphaNumable
 
-  attr_reader :message
+
+  attr_reader :message, :alpha_num
   def initialize
     @message = []
+    @alpha_num = AlphaNum.new
   end
 
   def split_characters(message)
@@ -18,8 +19,8 @@ class EncryptionAlgorithm
 
   def to_numeric(message)
     split_characters(message).map do |letter|
-      if !a_one[letter].nil?
-         a_one[letter]
+      if !@alpha_num.a_one[letter].nil?
+         @alpha_num.a_one[letter]
       else
         letter
       end
@@ -76,8 +77,8 @@ class EncryptionAlgorithm
 
   def to_alpha(numbers)
     numbers.map do |num|
-      if !one_a[num].nil?
-         one_a[num]
+      if !@alpha_num.one_a[num].nil?
+         @alpha_num.one_a[num]
       else
         num
       end
