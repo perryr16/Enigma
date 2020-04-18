@@ -6,7 +6,7 @@ class Enigma < EncryptionAlgorithm
 
   attr_reader :message, :encrypted_details, :decrypted_details
   def initialize
-
+    couple
   end
 
   def read_txt(filename)

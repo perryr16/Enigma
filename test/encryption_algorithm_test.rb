@@ -8,7 +8,7 @@ require './lib/encryption_algorithm'
 
 
 
-class EncryptTest < Minitest::Test
+class EncryptionAlgorithmTest < Minitest::Test
 
   def setup
     @encrypt = EncryptionAlgorithm.new
@@ -18,6 +18,11 @@ class EncryptTest < Minitest::Test
 
   def test_it_exists
     assert_instance_of EncryptionAlgorithm, @encrypt
+  end
+
+  def test_it_couples
+    @encrypt.couple
+    assert_instance_of AlphaNum, @encrypt.alpha_num
   end
 
   def test_it_returns_a_split_list_of_characters

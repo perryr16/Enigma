@@ -9,6 +9,10 @@ class EncryptionAlgorithm
   attr_reader :message, :alpha_num
   def initialize
     @message = []
+    couple
+  end
+
+  def couple
     @alpha_num = AlphaNum.new
   end
 
@@ -19,6 +23,7 @@ class EncryptionAlgorithm
 
   def to_numeric(message)
     split_characters(message).map do |letter|
+
       if !@alpha_num.a_one[letter].nil?
          @alpha_num.a_one[letter]
       else
