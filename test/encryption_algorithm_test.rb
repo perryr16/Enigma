@@ -25,6 +25,10 @@ class EncryptionAlgorithmTest < Minitest::Test
     assert_instance_of AlphaNum, @encrypt.alpha_num
   end
 
+  def test_it_returns_message
+    assert_equal [], @encrypt.message
+  end
+
   def test_it_returns_a_split_list_of_characters
     expected = ["b", "r", "o", "w", "n", " ", "f", "o", "x", "?", " ", "s", "l", "e", "e", "p", "y", " ", "d", "o", "g", "!", " ", "e", "n", "d"]
     assert_equal expected, @encrypt.split_characters(@the_message)
@@ -74,12 +78,34 @@ class EncryptionAlgorithmTest < Minitest::Test
     assert_equal [26, 18, 22, 19, 18, 8], @encrypt.shift(d_code, 4)
   end
 
+  def test_it_de_shifts_letters
+    message = @the_message
+
+    a_code = @encrypt.split_4th(message)[0]
+    b_code = @encrypt.split_4th(message)[1]
+    c_code = @encrypt.split_4th(message)[2]
+    d_code = @encrypt.split_4th(message)[3]
+    assert_equal [0, 12, 22, 10, 23, 5, 12], @encrypt.de_shift(a_code, 1)
+    assert_equal [0, 12, 22, 10, 23, 5, 12], @encrypt.de_shift(a_code, 28)
+    assert_equal [15, 24, "?", 2, 24, "!", 1], @encrypt.de_shift(b_code, 2)
+    assert_equal [11, 2, 23, 1, 0, 23], @encrypt.de_shift(c_code, 3)
+    assert_equal [18, 10, 14, 11, 10, 0], @encrypt.de_shift(d_code, 4)
+  end
+
+
 
   def test_it_zips_back_together
     message = @the_message
 
     expected = [2, 19, 17, 26, 14, 1, 8, 18, 24, "?", 2, 22, 12, 6, 7, 19, 25, 1, 6, 18, 7, "!", 2, 8, 14, 5]
     assert_equal expected, @encrypt.zip_together(message, 1,2,3,4)
+  end
+
+  def test_it_de_zips_back_together
+    message = @the_message
+
+    expected = [0, 15, 11, 18, 12, 24, 2, 10, 22, "?", 23, 14, 10, 2, 1, 11, 23, 24, 0, 10, 5, "!", 23, 0, 12, 1]
+    assert_equal expected, @encrypt.de_zip_together(message, 1,2,3,4)
   end
 
   def test_it_transforms_numeric_to_alpha
