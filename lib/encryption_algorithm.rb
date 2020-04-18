@@ -1,7 +1,3 @@
-# require 'date'
-# require './lib/shift_gen'
-# require './lib/alpha_num'
-
 class EncryptionAlgorithm
 
   attr_reader :message, :alpha_num, :shift_gen
