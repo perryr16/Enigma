@@ -7,8 +7,7 @@ require 'mocha/minitest'
 require './lib/encryption_algorithm'
 
 
-
-class EncryptTest < Minitest::Test
+class EncryptionAlgorithmTest < Minitest::Test
 
   def setup
     @encrypt = EncryptionAlgorithm.new
@@ -18,6 +17,16 @@ class EncryptTest < Minitest::Test
 
   def test_it_exists
     assert_instance_of EncryptionAlgorithm, @encrypt
+  end
+
+  def test_it_couples
+    @encrypt.couple
+    assert_instance_of AlphaNum, @encrypt.alpha_num
+    assert_instance_of ShiftGen, @encrypt.shift_gen
+  end
+
+  def test_it_returns_message
+    assert_equal [], @encrypt.message
   end
 
   def test_it_returns_a_split_list_of_characters
@@ -30,7 +39,8 @@ class EncryptTest < Minitest::Test
                 "i"=>8, "j"=>9, "k"=>10, "l"=>11, "m"=>12, "n"=>13, "o"=>14,
                 "p"=>15, "q"=>16, "r"=>17, "s"=>18, "t"=>19, "u"=>20, "v"=>21,
                 "w"=>22, "x"=>23, "y"=>24, "z"=>25, " "=>26}
-    assert_equal expected, @encrypt.a_one
+                # binding.pry
+    assert_equal expected, @encrypt.alpha_num.a_one
   end
 
   def test_it_creaters_a_hash_of_numeric_to_alpha
@@ -38,7 +48,7 @@ class EncryptTest < Minitest::Test
                 8=>"i", 9=>"j", 10=>"k", 11=>"l", 12=>"m", 13=>"n", 14=>"o",
                 15=>"p", 16=>"q", 17=>"r", 18=>"s", 19=>"t", 20=>"u", 21=>"v",
                 22=>"w", 23=>"x", 24=>"y", 25=>"z", 26=>" "}
-    assert_equal expected, @encrypt.one_a
+    assert_equal expected, @encrypt.alpha_num.one_a
   end
 
   def test_it_transforms_alpha_to_numeric
@@ -68,12 +78,34 @@ class EncryptTest < Minitest::Test
     assert_equal [26, 18, 22, 19, 18, 8], @encrypt.shift(d_code, 4)
   end
 
+  def test_it_de_shifts_letters
+    message = @the_message
+
+    a_code = @encrypt.split_4th(message)[0]
+    b_code = @encrypt.split_4th(message)[1]
+    c_code = @encrypt.split_4th(message)[2]
+    d_code = @encrypt.split_4th(message)[3]
+    assert_equal [0, 12, 22, 10, 23, 5, 12], @encrypt.de_shift(a_code, 1)
+    assert_equal [0, 12, 22, 10, 23, 5, 12], @encrypt.de_shift(a_code, 28)
+    assert_equal [15, 24, "?", 2, 24, "!", 1], @encrypt.de_shift(b_code, 2)
+    assert_equal [11, 2, 23, 1, 0, 23], @encrypt.de_shift(c_code, 3)
+    assert_equal [18, 10, 14, 11, 10, 0], @encrypt.de_shift(d_code, 4)
+  end
+
+
 
   def test_it_zips_back_together
     message = @the_message
 
     expected = [2, 19, 17, 26, 14, 1, 8, 18, 24, "?", 2, 22, 12, 6, 7, 19, 25, 1, 6, 18, 7, "!", 2, 8, 14, 5]
     assert_equal expected, @encrypt.zip_together(message, 1,2,3,4)
+  end
+
+  def test_it_de_zips_back_together
+    message = @the_message
+
+    expected = [0, 15, 11, 18, 12, 24, 2, 10, 22, "?", 23, 14, 10, 2, 1, 11, 23, 24, 0, 10, 5, "!", 23, 0, 12, 1]
+    assert_equal expected, @encrypt.de_zip_together(message, 1,2,3,4)
   end
 
   def test_it_transforms_numeric_to_alpha

@@ -1,16 +1,12 @@
-module Shiftable
+class ShiftGen
 
-  attr_reader :keys,
-              :key,
+  attr_reader :key,
               :offsets,
               :a_shift,
               :b_shift,
               :c_shift,
               :d_shift,
               :five_digit_key
-
-  def initialize
-  end
 
   def today
     Date.today.strftime("%d%m%y").to_i
