@@ -52,7 +52,8 @@ class Enigma < EncryptionAlgorithm
 
     @encrypted_details = encrypt(message)
     puts "-------------"
-    puts "#{encrypted_file} with the key #{@encrypted_details[:key]} and date #{@encrypted_details[:date]}"
+    # puts "#{encrypted_file} with the key #{@encrypted_details[:key]} and date #{@encrypted_details[:date]}"
+    puts "#{@encrypted_details[:encryption]} with the key #{@encrypted_details[:key]} and date #{@encrypted_details[:date]}"
     puts "-------------"
     write_to_file(@encrypted_details[:encryption], encrypted_file)
   end
@@ -68,7 +69,8 @@ class Enigma < EncryptionAlgorithm
     message = read_txt(encrypted_file)
     @decrypted_details = decrypt(message, de_key, de_date)
     puts "-------------"
-    puts "#{decrypted_file} with the key #{@decrypted_details[:key]} and date #{@decrypted_details[:date]}"
+    # puts "#{decrypted_file} with the key #{@decrypted_details[:key]} and date #{@decrypted_details[:date]}"
+    puts "#{@decrypted_details[:decryption]} with the key #{@decrypted_details[:key]} and date #{@decrypted_details[:date]}"
     puts "-------------"
     write_to_file(@decrypted_details[:decryption], decrypted_file)
   end

@@ -7,9 +7,6 @@ require 'mocha/minitest'
 require './lib/encryption_algorithm'
 
 
-
-
-
 class EncryptionAlgorithmTest < Minitest::Test
 
   def setup
@@ -94,7 +91,7 @@ class EncryptionAlgorithmTest < Minitest::Test
     assert_equal [11, 2, 23, 1, 0, 23], @encrypt.de_shift(c_code, 3)
     assert_equal [18, 10, 14, 11, 10, 0], @encrypt.de_shift(d_code, 4)
   end
-  
+
 
 
   def test_it_zips_back_together

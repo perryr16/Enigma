@@ -8,9 +8,6 @@ class ShiftGen
               :d_shift,
               :five_digit_key
 
-  def initialize
-  end
-
   def today
     Date.today.strftime("%d%m%y").to_i
   end

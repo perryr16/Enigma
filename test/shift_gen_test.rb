@@ -3,7 +3,6 @@ SimpleCov.start
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/shift_gen'
-require './lib/encryption_algorithm'
 require 'mocha/minitest'
 
 require 'pry'
@@ -52,18 +51,6 @@ class Shif_genTest < Minitest::Test
     assert_equal true, shift_gen.five_digit.to_i < 100000
     assert_equal true, shift_gen.five_digit.to_i > 0
   end
-
-  # def test_keys
-  #   shift_gen = ShiftGen.new
-  #
-  #
-  #   shift_gen.stubs(:five_digit).returns("01020")
-  #   number = shift_gen.five_digit
-  #   assert_equal 1, shift_gen.keys(number)[0]
-  #   assert_equal 10, shift_gen.keys(number)[1]
-  #   assert_equal 2, shift_gen.keys(number)[2]
-  #   assert_equal 20, shift_gen.keys(number)[3]
-  # end
 
   def test_shifts
     shift_gen = ShiftGen.new
