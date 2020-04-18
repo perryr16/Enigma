@@ -1,12 +1,12 @@
 require 'date'
-require_relative 'shiftable'
-require_relative 'alpha_num'
+require './lib/shift_gen'
+require './lib/alpha_num'
 
 class EncryptionAlgorithm
-  include Shiftable
+  # include Shiftable
 
 
-  attr_reader :message, :alpha_num
+  attr_reader :message, :alpha_num, :shift_gen
   def initialize
     @message = []
     couple
@@ -14,6 +14,7 @@ class EncryptionAlgorithm
 
   def couple
     @alpha_num = AlphaNum.new
+    @shift_gen = ShiftGen.new
   end
 
   def split_characters(message)
