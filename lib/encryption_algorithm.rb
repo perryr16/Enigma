@@ -1,10 +1,4 @@
-require 'date'
-require './lib/shift_gen'
-require './lib/alpha_num'
-
 class EncryptionAlgorithm
-  # include Shiftable
-
 
   attr_reader :message, :alpha_num, :shift_gen
   def initialize
@@ -24,7 +18,6 @@ class EncryptionAlgorithm
 
   def to_numeric(message)
     split_characters(message).map do |letter|
-
       if !@alpha_num.a_one[letter].nil?
          @alpha_num.a_one[letter]
       else
@@ -44,7 +37,8 @@ class EncryptionAlgorithm
     [a_code, b_code, c_code, d_code]
   end
 
-   def shift(code, shift)
+   def shift(code, shift, multiplier = 1)
+     shift *= multiplier
      code.map do |number|
       if number.is_a?(Integer)
         ( number + shift % 27) % 27
@@ -54,32 +48,13 @@ class EncryptionAlgorithm
     end
    end
 
-   def de_shift(code, shift)
-     code.map do |number|
-      if number.is_a?(Integer)
-        ( number - shift % 27) % 27
-      else
-         number
-      end
-    end
-   end
-
-   def zip_together(message, a_shift, b_shift, c_shift, d_shift)
-     one_code = shift(split_4th(message)[0], a_shift)
-     two_code = shift(split_4th(message)[1], b_shift)
-     three_code = shift(split_4th(message)[2], c_shift)
-     four_code = shift(split_4th(message)[3], d_shift)
+   def zip_together(message, a_shift, b_shift, c_shift, d_shift, multiplier = 1)
+     one_code = shift(split_4th(message)[0], a_shift, multiplier)
+     two_code = shift(split_4th(message)[1], b_shift, multiplier)
+     three_code = shift(split_4th(message)[2], c_shift, multiplier)
+     four_code = shift(split_4th(message)[3], d_shift, multiplier)
      one_code.zip(two_code, three_code, four_code).flatten.compact
    end
-
-   def de_zip_together(message, a_shift, b_shift, c_shift, d_shift)
-     one_code = de_shift(split_4th(message)[0], a_shift)
-     two_code = de_shift(split_4th(message)[1], b_shift)
-     three_code = de_shift(split_4th(message)[2], c_shift)
-     four_code = de_shift(split_4th(message)[3], d_shift)
-     one_code.zip(two_code, three_code, four_code).flatten.compact
-   end
-
 
   def to_alpha(numbers)
     numbers.map do |num|
