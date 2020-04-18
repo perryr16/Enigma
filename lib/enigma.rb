@@ -1,4 +1,3 @@
-
 require 'pry'
 require_relative 'encryption_algorithm'
 
@@ -10,7 +9,6 @@ class Enigma < EncryptionAlgorithm
   end
 
   def read_txt(filename)
-    # filename = "./text/secret_message.txt"
     @message = []
     File.open(filename).each {|line| @message << line.downcase}
     @message.map do |line|
@@ -29,7 +27,7 @@ class Enigma < EncryptionAlgorithm
       @shift_gen.shifts(key, date)
       to_numeric(code)
       split_4th(code)
-      numbers = de_zip_together(code, @shift_gen.a_shift, @shift_gen.b_shift, @shift_gen.c_shift, @shift_gen.d_shift)
+      numbers = zip_together(code, @shift_gen.a_shift, @shift_gen.b_shift, @shift_gen.c_shift, @shift_gen.d_shift, -1)
       decrypted = to_alpha(numbers)
       {decryption: decrypted, key: key, date: date.to_s}
   end
@@ -51,10 +49,8 @@ class Enigma < EncryptionAlgorithm
     message = read_txt(message_file)
 
     @encrypted_details = encrypt(message)
-    puts "-------------"
     # puts "#{encrypted_file} with the key #{@encrypted_details[:key]} and date #{@encrypted_details[:date]}"
     puts "#{@encrypted_details[:encryption]} with the key #{@encrypted_details[:key]} and date #{@encrypted_details[:date]}"
-    puts "-------------"
     write_to_file(@encrypted_details[:encryption], encrypted_file)
   end
 
@@ -64,14 +60,10 @@ class Enigma < EncryptionAlgorithm
     decrypted_file = input[1]
     de_key = input[2]
     de_date = input[3]
-
-
     message = read_txt(encrypted_file)
     @decrypted_details = decrypt(message, de_key, de_date)
-    puts "-------------"
     # puts "#{decrypted_file} with the key #{@decrypted_details[:key]} and date #{@decrypted_details[:date]}"
     puts "#{@decrypted_details[:decryption]} with the key #{@decrypted_details[:key]} and date #{@decrypted_details[:date]}"
-    puts "-------------"
     write_to_file(@decrypted_details[:decryption], decrypted_file)
   end
 

@@ -11,7 +11,6 @@ class EncryptionAlgorithmTest < Minitest::Test
 
   def setup
     @encrypt = EncryptionAlgorithm.new
-
     @the_message = "brown fox? sleepy dog! end"
   end
 
@@ -85,27 +84,23 @@ class EncryptionAlgorithmTest < Minitest::Test
     b_code = @encrypt.split_4th(message)[1]
     c_code = @encrypt.split_4th(message)[2]
     d_code = @encrypt.split_4th(message)[3]
-    assert_equal [0, 12, 22, 10, 23, 5, 12], @encrypt.de_shift(a_code, 1)
-    assert_equal [0, 12, 22, 10, 23, 5, 12], @encrypt.de_shift(a_code, 28)
-    assert_equal [15, 24, "?", 2, 24, "!", 1], @encrypt.de_shift(b_code, 2)
-    assert_equal [11, 2, 23, 1, 0, 23], @encrypt.de_shift(c_code, 3)
-    assert_equal [18, 10, 14, 11, 10, 0], @encrypt.de_shift(d_code, 4)
+    assert_equal [0, 12, 22, 10, 23, 5, 12], @encrypt.shift(a_code, 1, -1)
+    assert_equal [0, 12, 22, 10, 23, 5, 12], @encrypt.shift(a_code, 28, -1)
+    assert_equal [15, 24, "?", 2, 24, "!", 1], @encrypt.shift(b_code, 2, -1)
+    assert_equal [11, 2, 23, 1, 0, 23], @encrypt.shift(c_code, 3, -1)
+    assert_equal [18, 10, 14, 11, 10, 0], @encrypt.shift(d_code, 4, -1)
   end
 
 
 
-  def test_it_zips_back_together
+  def test_it_zips_back_together_forwards_backwards
     message = @the_message
 
     expected = [2, 19, 17, 26, 14, 1, 8, 18, 24, "?", 2, 22, 12, 6, 7, 19, 25, 1, 6, 18, 7, "!", 2, 8, 14, 5]
     assert_equal expected, @encrypt.zip_together(message, 1,2,3,4)
-  end
-
-  def test_it_de_zips_back_together
-    message = @the_message
 
     expected = [0, 15, 11, 18, 12, 24, 2, 10, 22, "?", 23, 14, 10, 2, 1, 11, 23, 24, 0, 10, 5, "!", 23, 0, 12, 1]
-    assert_equal expected, @encrypt.de_zip_together(message, 1,2,3,4)
+    assert_equal expected, @encrypt.zip_together(message, 1,2,3,4, -1)
   end
 
   def test_it_transforms_numeric_to_alpha
