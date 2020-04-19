@@ -24,22 +24,6 @@ class Crack
     Hash[crack_keys.zip(crack_vals)]
   end
 
-  # def crack_key(message, date)
-  #   offset = @shift_gen.offsets(date)
-  #   crack_a_key = (crack_shift(message)[:a] - offset[0]) #12
-  #   crack_b_key = (crack_shift(message)[:b] - offset[1]) + 27 #23
-  #   crack_c_key = (crack_shift(message)[:c] - offset[2]) + 27 #34
-  #   crack_d_key = (crack_shift(message)[:d] - offset[3]) + 27 #45
-  #   @key = crack_a_key.to_s[0]+crack_b_key.to_s[0]+crack_c_key.to_s[0]+crack_d_key.to_s.rjust(2, "0")
-  #   binding.pry
-  # end
-  #
-  # def crack_key_new(message, date)
-  #   offset = @shift_gen.offsets(date)
-  #   crack_a_key = (crack_shift(message)[:a] - offset[0]) #12
-  #   crack_b_key = all_possible_keys(message, date, :b, 1).find {}
-  # end
-
   def all_possible_keys(message, date, letter_sym, offset_position)
     offset = @shift_gen.offsets(date)
     possible_keys = []
@@ -53,25 +37,23 @@ class Crack
     possible_keys
   end
 
+  def a_keys(message, date)
+    all_possible_keys(message, date, :a, 0)
+  end
+  
   def the_key(message, date, letter_sym, offset_position, first_digit)
     all_possible_keys(message, date, letter_sym, offset_position).find do |key|
       key[0] == first_digit
     end.to_s
   end
 
-  def a_keys(message, date)
-    all_possible_keys(message, date, :a, 0)
-  end
 
   def four_good_keys(message, date)
     the_keys = []
     a_keys(message, date).each_with_index do |key|
       the_keys = [key.to_s]
-      # binding.pry
       the_keys << the_key(message, date, :b, 1, key.to_s[1])
-      # binding.pry
       the_keys << the_key(message, date, :c, 2, the_keys.last[1])
-      # binding.pry
       the_keys << the_key(message, date, :d, 3, the_keys.last[1])
       return the_keys if !the_keys.include?("")
     end
