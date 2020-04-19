@@ -14,23 +14,24 @@ class Crack
     delta_end
   end
 
-  def crack_a_index(message)
-    return -4 if message.length % 4 == 0
-    return -3 if message.length % 4 == 1
-    return -2 if message.length % 4 == 2
-    return -1 if message.length % 4 == 3
-  end
+  # def crack_a_index(message)
+  #   return -4 if message.length % 4 == 0
+  #   return -3 if message.length % 4 == 1
+  #   return -2 if message.length % 4 == 2
+  #   return -1 if message.length % 4 == 3
+  # end
 
   def crack_indexes(message)
-    a_index = crack_a_index
-    b_index = (crack_a_index + 1) % 4
-    c_index = (crack_a_index + 2) % 4
-    d_index = (crack_a_index + 3) % 4
-    [a_index, b_index, c_index, d_index]
+    a_index = (message.length % 4)
+    b_index = (a_index + 3) % 4
+    c_index = (a_index + 2) % 4
+    d_index = (a_index + 1) % 4
+    crack_indexes = [a_index, b_index, c_index, d_index]
+    crack_indexes[crack_indexes.index(0)] =  4
+    return crack_indexes.map {|val| val * -1}
   end
 
   def crack_shift(message)
-    delta_end
     crack_a_shift =
     crack_b_shift
     crack_c_shift

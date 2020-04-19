@@ -26,16 +26,26 @@ class CrackTest < Minitest::Test
     expected = {space: 26, e: 26, n: 26, d: 26}
     assert_equal expected, crack.delta_end("zdmc")
   end
+  # 
+  # def test_crack_a_index
+  #   crack = Crack.new
+  #   assert_equal -4, crack.crack_a_index(" end")
+  #   assert_equal -3, crack.crack_a_index("x end")
+  #   assert_equal -2, crack.crack_a_index("xx end")
+  #   assert_equal -1, crack.crack_a_index("xxx end")
+  #   assert_equal -4, crack.crack_a_index("xxxx end")
+  # end
 
-  def test_crack_index
+  def test_crack_indexes
     crack = Crack.new
-    assert_equal -4, crack.crack_a_index(" end")
-    assert_equal -3, crack.crack_a_index("x end")
-    assert_equal -2, crack.crack_a_index("xx end")
-    assert_equal -1, crack.crack_a_index("xxx end")
-    assert_equal -4, crack.crack_a_index("xxxx end")
+
+    assert_equal [-4, -3, -2, -1], crack.crack_indexes(" end")
+    assert_equal [-4, -3, -2, -1], crack.crack_indexes("xxxx end")
+    assert_equal [-1, -4, -3, -2], crack.crack_indexes("x end")
+    assert_equal [-2, -1, -4, -3], crack.crack_indexes("xx end")
+    assert_equal [-3, -2, -1, -4], crack.crack_indexes("xxx end")
   end
 
-  
+
 
 end
