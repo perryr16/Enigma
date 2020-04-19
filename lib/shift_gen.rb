@@ -14,7 +14,8 @@ class ShiftGen
     (date.to_i ** 2).digits[0..3].reverse
   end
 
-  def offsets(date_squared)
+  def offsets(date)
+    date_squared = date_squared(date)
     a_offset = date_squared[0]
     b_offset = date_squared[1]
     c_offset = date_squared[2]
@@ -29,7 +30,7 @@ class ShiftGen
 
 
   def shifts(number, date)
-    offset = offsets(date_squared(date))
+    offset = offsets(date)
     @key = number if !number.nil?
     @key = five_digit if number.nil?
     @a_shift = key[0..1].to_i + offset[0]
