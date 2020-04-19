@@ -95,6 +95,7 @@ class EncryptionAlgorithmTest < Minitest::Test
     expected = "ctr obisy?cwmghtzbgsh!ciof"
     numeric_message = @encrypt.zip_together(message, 1,2,3,4)
     assert_equal  expected, @encrypt.to_alpha(numeric_message)
+
   end
 
 
