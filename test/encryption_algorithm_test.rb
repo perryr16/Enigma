@@ -5,7 +5,6 @@ require 'minitest/pride'
 require 'pry'
 require 'mocha/minitest'
 require './lib/encryption_algorithm'
-require './lib/shift_gen'
 
 
 class EncryptionAlgorithmTest < Minitest::Test

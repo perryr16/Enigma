@@ -1,6 +1,5 @@
 require './lib/alpha_numable'
-require './lib/shift_gen'
-require './lib/crack_algorithm'
+
 class EncryptionAlgorithm
 
   include AlphaNumable
