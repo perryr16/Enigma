@@ -1,4 +1,5 @@
-class ShiftGen
+require './lib/offset_gen'
+class ShiftGen < OffsetGen
 
   attr_reader :key,
               :a_shift,
@@ -8,15 +9,6 @@ class ShiftGen
 
   def today
     Date.today.strftime("%d%m%y").to_i
-  end
-
-  def offsets(date)
-    date_squared = (date.to_i ** 2).digits[0..3].reverse
-    a_offset = date_squared[0]
-    b_offset = date_squared[1]
-    c_offset = date_squared[2]
-    d_offset = date_squared[3]
-    [a_offset, b_offset, c_offset, d_offset]
   end
 
   def five_digit
