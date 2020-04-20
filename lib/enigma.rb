@@ -1,7 +1,7 @@
 require 'pry'
-require_relative 'encryption_algorithm'
+# require_relative 'encryption_algorithm'
 
-class Enigma < EncryptionAlgorithm
+class Enigma #< EncryptionAlgorithm
 
   attr_reader :message,
               :encrypted_details,
@@ -11,7 +11,8 @@ class Enigma < EncryptionAlgorithm
 
   def initialize
     @shift_gen = ShiftGen.new
-    @crack = Crack.new
+    @crack = CrackAlgorithm.new
+    @encrypt = EncryptionAlgorithm.new
   end
 
   def read_txt(filename)
@@ -34,27 +35,27 @@ class Enigma < EncryptionAlgorithm
 
   def encrypt(message, enc_key = nil, date = @shift_gen.today)
     @shift_gen.shifts(enc_key, date)
-    numbers = zip_together(message, @shift_gen.a_shift, @shift_gen.b_shift, @shift_gen.c_shift, @shift_gen.d_shift)
-    encrypted = to_alpha(numbers)
+    numbers = @encrypt.zip_together(message, @shift_gen.a_shift, @shift_gen.b_shift, @shift_gen.c_shift, @shift_gen.d_shift)
+    encrypted = @encrypt.to_alpha(numbers)
     {encryption: encrypted, key: @shift_gen.key, date: date.to_s}
   end
 
   def decrypt(code, key = nil, date = @shift_gen.today)
     @shift_gen.shifts(key, date)
-    to_numeric(code)
-    split_4th(code)
-    numbers = zip_together(code, @shift_gen.a_shift, @shift_gen.b_shift, @shift_gen.c_shift, @shift_gen.d_shift, -1)
-    decrypted = to_alpha(numbers)
+    @encrypt.to_numeric(code)
+    @encrypt.split_4th(code)
+    numbers = @encrypt.zip_together(code, @shift_gen.a_shift, @shift_gen.b_shift, @shift_gen.c_shift, @shift_gen.d_shift, -1)
+    decrypted = @encrypt.to_alpha(numbers)
     {decryption: decrypted, key: key, date: date.to_s}
   end
 
   def crack(code, date = @shift_gen.today)
     cracked_key = @crack.cracked_key(code, date)
     @shift_gen.shifts(cracked_key, date)
-    to_numeric(code)
-    split_4th(code)
-    numbers = zip_together(code, @shift_gen.a_shift, @shift_gen.b_shift, @shift_gen.c_shift, @shift_gen.d_shift, -1)
-    decrypted = to_alpha(numbers)
+    @encrypt.to_numeric(code)
+    @encrypt.split_4th(code)
+    numbers = @encrypt.zip_together(code, @shift_gen.a_shift, @shift_gen.b_shift, @shift_gen.c_shift, @shift_gen.d_shift, -1)
+    decrypted = @encrypt.to_alpha(numbers)
     {decryption: decrypted, key: cracked_key, date: date.to_s}
   end
 
