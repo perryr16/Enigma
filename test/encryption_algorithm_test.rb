@@ -23,13 +23,6 @@ class EncryptionAlgorithmTest < Minitest::Test
     assert_equal [], @encrypt.message
   end
 
-  def test_it_couples
-    @encrypt.couple
-    # assert_instance_of AlphaNum, @encrypt.alpha_num
-    assert_instance_of ShiftGen, @encrypt.shift_gen
-  end
-
-
   def test_it_returns_a_split_list_of_characters
     expected = ["b", "r", "o", "w", "n", " ", "f", "o", "x", "?", " ", "s", "l", "e", "e", "p", "y", " ", "d", "o", "g", "!", " ", "e", "n", "d"]
     assert_equal expected, @encrypt.split_characters(@the_message)

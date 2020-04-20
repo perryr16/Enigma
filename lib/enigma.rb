@@ -6,10 +6,12 @@ class Enigma < EncryptionAlgorithm
   attr_reader :message,
               :encrypted_details,
               :decrypted_details,
-              :cracked_details
+              :cracked_details,
+              :shift_gen
 
   def initialize
-    couple
+    @shift_gen = ShiftGen.new
+    @crack = Crack.new
   end
 
   def read_txt(filename)

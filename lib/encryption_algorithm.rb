@@ -5,16 +5,9 @@ class EncryptionAlgorithm
 
   include AlphaNumable
 
-  attr_reader :message, :alpha_num, :shift_gen, :crack
+  attr_reader :message
   def initialize
     @message = []
-    couple
-  end
-
-  def couple
-    # @alpha_num = AlphaNum.new
-    @shift_gen = ShiftGen.new
-    @crack = Crack.new
   end
 
   def split_characters(message)
