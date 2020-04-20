@@ -45,7 +45,6 @@ class CrackAlgorithm < OffsetGen
     end.to_s
   end
 
-
   def four_good_keys(message, date)
     the_keys = []
     all_a_keys(message, date).each_with_index do |key|
@@ -62,6 +61,5 @@ class CrackAlgorithm < OffsetGen
     four_keys = four_good_keys(message, date)
     four_keys[0][0] + four_keys[1][0] + four_keys[2][0] + four_keys[3]
   end
-
 
 end

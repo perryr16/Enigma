@@ -4,7 +4,6 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require 'pry'
 require './lib/crack_algorithm'
-require './lib/shift_gen'
 
 
 class CrackAlgorithmAlgorithmTest < Minitest::Test
