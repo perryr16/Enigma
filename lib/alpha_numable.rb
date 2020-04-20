@@ -1,4 +1,4 @@
-class AlphaNum
+module AlphaNumable
 
   def a_one
     alpha = ("a".."z").to_a << " "

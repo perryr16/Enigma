@@ -1,18 +1,13 @@
-require './lib/alpha_num'
+require './lib/alpha_numable'
 require './lib/shift_gen'
-require './lib/crack'
+require './lib/crack_algorithm'
 class EncryptionAlgorithm
 
-  attr_reader :message, :alpha_num, :shift_gen, :crack
+  include AlphaNumable
+
+  attr_reader :message
   def initialize
     @message = []
-    couple
-  end
-
-  def couple
-    @alpha_num = AlphaNum.new
-    @shift_gen = ShiftGen.new
-    @crack = Crack.new
   end
 
   def split_characters(message)
@@ -22,8 +17,8 @@ class EncryptionAlgorithm
 
   def to_numeric(message)
     split_characters(message).map do |letter|
-      if !@alpha_num.a_one[letter].nil?
-         @alpha_num.a_one[letter]
+      if !a_one[letter].nil?
+         a_one[letter]
       else
         letter
       end
@@ -62,8 +57,8 @@ class EncryptionAlgorithm
 
   def to_alpha(numbers)
     numbers.map do |num|
-      if !@alpha_num.one_a[num].nil?
-         @alpha_num.one_a[num]
+      if !one_a[num].nil?
+         one_a[num]
       else
         num
       end
