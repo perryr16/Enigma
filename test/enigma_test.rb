@@ -4,8 +4,6 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/encryption_algorithm'
 require './lib/enigma'
-# require './lib/alpha_num'
-# require './lib/shift_gen'
 require 'mocha/minitest'
 
 require 'pry'
@@ -19,7 +17,6 @@ class EnigmaTest < Minitest::Test
 
   def test_it_encrypts_message
     enigma =  Enigma.new
-  #   # binding.pry
     expected = {:encryption => "v rw", :key=>"12345", :date=>"130591"}
     assert_equal expected, enigma.encrypt("abcd", "12345", "130591")
     expected = {:encryption => "v rw!!!", :key=>"12345", :date=>"130591"}
@@ -90,15 +87,17 @@ class EnigmaTest < Minitest::Test
 
   def test_crack_runner
     enigma =  Enigma.new
-    enigma.stubs(:user_input).returns(["./text/test_encrypted.txt", "./text/test_cracked.txt"])
+    enigma.stubs(:user_input).returns(["./text/test_encrypted.txt", "./text/test_cracked.txt", "190420"])
     enigma.crack_runner
 
-    expected = enigma.read_txt("./text/test_decrypted.txt")[0]
+    expected = enigma.read_txt("./text/test_cracked.txt")[0]
     assert_equal expected, enigma.cracked_details[:decryption]
   end
 
   def test_for_me
     enigma = Enigma.new
+    enigma.shift_gen.stubs(:today).returns("190420")
+    
     expected = {:encryption=>"reuv", :key=>"12345", :date=>"190420"}
     assert_equal expected, enigma.encrypt(" end", "12345")
     expected = {:encryption=>"x ev", :key=>"99999", :date=>"190420"}

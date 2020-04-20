@@ -1,4 +1,3 @@
-require './lib/alpha_num'
 require './lib/alpha_numable'
 require './lib/shift_gen'
 require './lib/crack_algorithm'

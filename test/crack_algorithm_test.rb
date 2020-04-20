@@ -4,8 +4,7 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require 'pry'
 require 'mocha/minitest'
-require './lib/crack'
-require './lib/alpha_num'
+require './lib/crack_algorithm'
 require './lib/shift_gen'
 
 
