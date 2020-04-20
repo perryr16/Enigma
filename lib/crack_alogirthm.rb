@@ -67,4 +67,5 @@ class Crack
     @cracked_key = four_keys[0][0] + four_keys[1][0] + four_keys[2][0] + four_keys[3]
   end
 
+
 end
