@@ -3,7 +3,7 @@ class CrackAlgorithm
 
   include AlphaNumable
 
-  attr_reader :cracked_key
+
   def initialize
   end
 
@@ -72,7 +72,7 @@ class CrackAlgorithm
 
   def cracked_key(message, date)
     four_keys = four_good_keys(message, date)
-    @cracked_key = four_keys[0][0] + four_keys[1][0] + four_keys[2][0] + four_keys[3]
+    four_keys[0][0] + four_keys[1][0] + four_keys[2][0] + four_keys[3]
   end
 
 

@@ -83,6 +83,7 @@ class CrackAlgorithmAlgorithmTest < Minitest::Test
     assert_equal "01010", crack.cracked_key("gson", "190420")
     assert_equal "86593", crack.cracked_key("ktsp", "190420")
     assert_equal "12345", crack.cracked_key("khlrvelireuafygwstpey i jca ks,rsnkrkhlruocjrcherdheueg x  zwygnsn rkogwed", "190420")
+    # assert_equal "12345", crack.cracked_key
   end
 
 
@@ -93,7 +94,6 @@ class CrackAlgorithmAlgorithmTest < Minitest::Test
                 "i"=>8, "j"=>9, "k"=>10, "l"=>11, "m"=>12, "n"=>13, "o"=>14,
                 "p"=>15, "q"=>16, "r"=>17, "s"=>18, "t"=>19, "u"=>20, "v"=>21,
                 "w"=>22, "x"=>23, "y"=>24, "z"=>25, " "=>26}
-                # binding.pry
     assert_equal expected, crack.alpha_to_num
   end
 
