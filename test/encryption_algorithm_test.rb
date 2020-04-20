@@ -95,7 +95,7 @@ class EncryptionAlgorithmTest < Minitest::Test
                 "i"=>8, "j"=>9, "k"=>10, "l"=>11, "m"=>12, "n"=>13, "o"=>14,
                 "p"=>15, "q"=>16, "r"=>17, "s"=>18, "t"=>19, "u"=>20, "v"=>21,
                 "w"=>22, "x"=>23, "y"=>24, "z"=>25, " "=>26}
-    assert_equal expected, @encrypt.a_one
+    assert_equal expected, @encrypt.alpha_to_num
   end
 
   def test_it_creaters_a_hash_of_numeric_to_alpha
@@ -103,7 +103,7 @@ class EncryptionAlgorithmTest < Minitest::Test
                 8=>"i", 9=>"j", 10=>"k", 11=>"l", 12=>"m", 13=>"n", 14=>"o",
                 15=>"p", 16=>"q", 17=>"r", 18=>"s", 19=>"t", 20=>"u", 21=>"v",
                 22=>"w", 23=>"x", 24=>"y", 25=>"z", 26=>" "}
-    assert_equal expected, @encrypt.one_a
+    assert_equal expected, @encrypt.num_to_alpha
   end
 
 
