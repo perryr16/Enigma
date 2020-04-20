@@ -3,20 +3,19 @@ SimpleCov.start
 require 'minitest/autorun'
 require 'minitest/pride'
 require 'pry'
-require 'mocha/minitest'
 require './lib/crack_algorithm'
 require './lib/shift_gen'
 
 
-class CrackTest < Minitest::Test
+class CrackAlgorithmAlgorithmTest < Minitest::Test
 
   def test_it_exists
-    crack = Crack.new
-    assert_instance_of Crack, crack
+    crack = CrackAlgorithm.new
+    assert_instance_of CrackAlgorithm, crack
   end
 
   def test_delta_end
-    crack =  Crack.new
+    crack =  CrackAlgorithm.new
     expected = {:space=>0, :e=>0, :n=>0, :d=>0}
     assert_equal expected, crack.delta_end(" end")
     expected = {:space=>0, :e=>1, :n=>0, :d=>0}
@@ -26,7 +25,7 @@ class CrackTest < Minitest::Test
   end
 
   def test_crack_shift
-    crack = Crack.new
+    crack = CrackAlgorithm.new
     expected = {:a=>0, :b=>1, :c=>2, :d=>3}
     assert_equal expected, crack.crack_shift(" fpg")
     expected = {:a=>3, :b=>0, :c=>1, :d=>2}
@@ -40,7 +39,7 @@ class CrackTest < Minitest::Test
   end
 
   def test_all_possible_keys
-    crack = Crack.new
+    crack = CrackAlgorithm.new
     assert_equal ["18", "45", "72", "99"], crack.all_possible_keys("x ev","190420", :a, 0)
     assert_equal ["18", "45", "72", "99"], crack.all_possible_keys("x ev","190420", :b, 1)
     assert_equal ["18", "45", "72", "99"], crack.all_possible_keys("x ev","190420", :c, 2)
@@ -53,13 +52,13 @@ class CrackTest < Minitest::Test
   end
 
   def test_a_keys
-    crack = Crack.new
+    crack = CrackAlgorithm.new
     assert_equal ["18", "45", "72", "99"], crack.a_keys("x ev","190420")
     assert_equal ["12", "39", "66", "93"], crack.a_keys("reuv","190420")
   end
 
   def test_the_key
-    crack = Crack.new
+    crack = CrackAlgorithm.new
     assert_equal "23", crack.the_key("reuv","190420", :b, 1, "2")
     assert_equal "34", crack.the_key("reuv","190420", :c, 2, "3")
     assert_equal "45", crack.the_key("reuv","190420", :d, 3, "4")
@@ -70,7 +69,7 @@ class CrackTest < Minitest::Test
   end
 
   def test_four_good_keys
-    crack = Crack.new
+    crack = CrackAlgorithm.new
     assert_equal ["12", "23", "34", "45"], crack.four_good_keys("reuv", "190420")
     assert_equal ["99", "99", "99", "99"], crack.four_good_keys("x ev", "190420")
     assert_equal ["01", "10", "01", "10"], crack.four_good_keys("gson", "190420")
@@ -78,7 +77,7 @@ class CrackTest < Minitest::Test
   end
 
   def test_cracked_key
-    crack = Crack.new
+    crack = CrackAlgorithm.new
     assert_equal "12345", crack.cracked_key("reuv", "190420")
     assert_equal "99999", crack.cracked_key("x ev", "190420")
     assert_equal "01010", crack.cracked_key("gson", "190420")
@@ -88,7 +87,7 @@ class CrackTest < Minitest::Test
 
 
   def test_it_creates_a_hash_of_aplha_to_numbers
-    crack = Crack.new
+    crack = CrackAlgorithm.new
 
     expected = {"a"=>0, "b"=>1, "c"=>2, "d"=>3, "e"=>4, "f"=>5, "g"=>6, "h"=>7,
                 "i"=>8, "j"=>9, "k"=>10, "l"=>11, "m"=>12, "n"=>13, "o"=>14,
@@ -99,7 +98,7 @@ class CrackTest < Minitest::Test
   end
 
   def test_it_creaters_a_hash_of_numeric_to_alpha
-    crack = Crack.new
+    crack = CrackAlgorithm.new
 
     expected = {0=>"a", 1=>"b", 2=>"c", 3=>"d", 4=>"e", 5=>"f", 6=>"g", 7=>"h",
                 8=>"i", 9=>"j", 10=>"k", 11=>"l", 12=>"m", 13=>"n", 14=>"o",

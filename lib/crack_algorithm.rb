@@ -1,5 +1,5 @@
 require './lib/alpha_numable'
-class Crack
+class CrackAlgorithm
 
   include AlphaNumable
 
