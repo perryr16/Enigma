@@ -47,11 +47,11 @@ class CrackAlgorithm
     possible_keys
   end
 
-  def a_keys(message, date)
+  def all_a_keys(message, date)
     all_possible_keys(message, date, :a, 0)
   end
 
-  def the_key(message, date, letter_sym, offset_position, first_digit)
+  def correct_key(message, date, letter_sym, offset_position, first_digit)
     all_possible_keys(message, date, letter_sym, offset_position).find do |key|
       key[0] == first_digit
     end.to_s
@@ -60,11 +60,11 @@ class CrackAlgorithm
 
   def four_good_keys(message, date)
     the_keys = []
-    a_keys(message, date).each_with_index do |key|
+    all_a_keys(message, date).each_with_index do |key|
       the_keys = [key.to_s]
-      the_keys << the_key(message, date, :b, 1, key.to_s[1])
-      the_keys << the_key(message, date, :c, 2, the_keys.last[1])
-      the_keys << the_key(message, date, :d, 3, the_keys.last[1])
+      the_keys << correct_key(message, date, :b, 1, key.to_s[1])
+      the_keys << correct_key(message, date, :c, 2, the_keys.last[1])
+      the_keys << correct_key(message, date, :d, 3, the_keys.last[1])
       return the_keys if !the_keys.include?("")
     end
     the_keys

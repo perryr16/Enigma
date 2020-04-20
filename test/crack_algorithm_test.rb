@@ -51,21 +51,21 @@ class CrackAlgorithmAlgorithmTest < Minitest::Test
     assert_equal ["18", "45", "72", "99"], crack.all_possible_keys("reuv","190420", :d, 3)
   end
 
-  def test_a_keys
+  def test_all_a_keys
     crack = CrackAlgorithm.new
-    assert_equal ["18", "45", "72", "99"], crack.a_keys("x ev","190420")
-    assert_equal ["12", "39", "66", "93"], crack.a_keys("reuv","190420")
+    assert_equal ["18", "45", "72", "99"], crack.all_a_keys("x ev","190420")
+    assert_equal ["12", "39", "66", "93"], crack.all_a_keys("reuv","190420")
   end
 
-  def test_the_key
+  def test_correct_key
     crack = CrackAlgorithm.new
-    assert_equal "23", crack.the_key("reuv","190420", :b, 1, "2")
-    assert_equal "34", crack.the_key("reuv","190420", :c, 2, "3")
-    assert_equal "45", crack.the_key("reuv","190420", :d, 3, "4")
+    assert_equal "23", crack.correct_key("reuv","190420", :b, 1, "2")
+    assert_equal "34", crack.correct_key("reuv","190420", :c, 2, "3")
+    assert_equal "45", crack.correct_key("reuv","190420", :d, 3, "4")
 
-    assert_equal "99", crack.the_key("x ev","190420", :b, 1, "9")
-    assert_equal "99", crack.the_key("x ev","190420", :c, 2, "9")
-    assert_equal "99", crack.the_key("x ev","190420", :d, 3, "9")
+    assert_equal "99", crack.correct_key("x ev","190420", :b, 1, "9")
+    assert_equal "99", crack.correct_key("x ev","190420", :c, 2, "9")
+    assert_equal "99", crack.correct_key("x ev","190420", :d, 3, "9")
   end
 
   def test_four_good_keys
@@ -105,6 +105,16 @@ class CrackAlgorithmAlgorithmTest < Minitest::Test
                 15=>"p", 16=>"q", 17=>"r", 18=>"s", 19=>"t", 20=>"u", 21=>"v",
                 22=>"w", 23=>"x", 24=>"y", 25=>"z", 26=>" "}
     assert_equal expected, crack.num_to_alpha
+  end
+
+  def test_date_returns_offsets
+    crack = CrackAlgorithm.new
+
+    date = "170420"
+    assert_equal 6, crack.offsets(date)[0]
+    assert_equal 4, crack.offsets(date)[1]
+    assert_equal 0, crack.offsets(date)[2]
+    assert_equal 0, crack.offsets(date)[3]
   end
 
 end
