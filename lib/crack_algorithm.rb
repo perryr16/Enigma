@@ -1,5 +1,6 @@
 require './lib/alpha_numable'
-class CrackAlgorithm
+require './lib/offset_gen'
+class CrackAlgorithm < OffsetGen
 
   include AlphaNumable
 
@@ -20,15 +21,6 @@ class CrackAlgorithm
     crack_keys = [:a, :b, :c, :d].rotate(a_index)
     crack_vals = [delta[:space], delta[:e], delta[:n], delta[:d]]
     Hash[crack_keys.zip(crack_vals)]
-  end
-
-  def offsets(date)
-    date_squared = (date.to_i ** 2).digits[0..3].reverse
-    a_offset = date_squared[0]
-    b_offset = date_squared[1]
-    c_offset = date_squared[2]
-    d_offset = date_squared[3]
-    [a_offset, b_offset, c_offset, d_offset]
   end
 
   def all_possible_keys(message, date, letter_sym, offset_position)
