@@ -5,7 +5,6 @@ class CrackAlgorithm
 
   attr_reader :cracked_key
   def initialize
-    @shift_gen = ShiftGen.new
   end
 
   def delta_end(message)
@@ -27,8 +26,17 @@ class CrackAlgorithm
     Hash[crack_keys.zip(crack_vals)]
   end
 
+  def offsets(date)
+    date_squared = (date.to_i ** 2).digits[0..3].reverse
+    a_offset = date_squared[0]
+    b_offset = date_squared[1]
+    c_offset = date_squared[2]
+    d_offset = date_squared[3]
+    [a_offset, b_offset, c_offset, d_offset]
+  end
+
   def all_possible_keys(message, date, letter_sym, offset_position)
-    offset = @shift_gen.offsets(date)
+    offset = offsets(date)
     possible_keys = []; index = 0
     loop do
       possible_key = (crack_shift(message)[letter_sym] - offset[offset_position]) + 27 * index
