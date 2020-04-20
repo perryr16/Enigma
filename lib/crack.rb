@@ -1,18 +1,20 @@
+require './lib/alpha_numable'
 class Crack
+
+  include AlphaNumable
 
   attr_reader :cracked_key
   def initialize
-    @alpha_num = AlphaNum.new
     @shift_gen = ShiftGen.new
   end
 
   def delta_end(message)
     message = message[0] if message.is_a?(Array)
     delta_end = {}
-    delta_end[:space] = (@alpha_num.a_one[message[-4]] - 26) % 27
-    delta_end[:e] = (@alpha_num.a_one[message[-3]] - 4) % 27
-    delta_end[:n] = (@alpha_num.a_one[message[-2]] - 13) % 27
-    delta_end[:d] = (@alpha_num.a_one[message[-1]] - 3) % 27
+    delta_end[:space] = (a_one[message[-4]] - 26) % 27
+    delta_end[:e] = (a_one[message[-3]] - 4) % 27
+    delta_end[:n] = (a_one[message[-2]] - 13) % 27
+    delta_end[:d] = (a_one[message[-1]] - 3) % 27
     delta_end
   end
 
@@ -27,11 +29,9 @@ class Crack
 
   def all_possible_keys(message, date, letter_sym, offset_position)
     offset = @shift_gen.offsets(date)
-    possible_keys = []
-    index = 0
+    possible_keys = []; index = 0
     loop do
-      break if offset[offset_position].nil?
-      possible_key = (crack_shift(message)[letter_sym] - offset[offset_position]) + 27*index  #23
+      possible_key = (crack_shift(message)[letter_sym] - offset[offset_position]) + 27 * index
       break if possible_key > 99
       possible_keys << possible_key.to_s.rjust(2, "0") if possible_key > 0
       index += 1
