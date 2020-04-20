@@ -28,7 +28,6 @@ class ShiftGen
     five_digit.to_s.rjust(5, "0")[-5..-1]
   end
 
-
   def shifts(number, date)
     offset = offsets(date)
     @key = number if !number.nil?

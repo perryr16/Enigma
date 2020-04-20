@@ -73,5 +73,4 @@ class Shif_genTest < Minitest::Test
     assert_equal 21, shift_gen.d_shift
   end
 
-
 end
