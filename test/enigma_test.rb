@@ -4,6 +4,8 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/encryption_algorithm'
 require './lib/enigma'
+# require './lib/alpha_num'
+# require './lib/shift_gen'
 require 'mocha/minitest'
 
 require 'pry'
@@ -84,6 +86,30 @@ class EnigmaTest < Minitest::Test
 
     expected = enigma.read_txt("./text/test_decrypted.txt")[0]
     assert_equal expected, enigma.decrypted_details[:decryption]
+  end
+
+  def test_crack_runner
+    enigma =  Enigma.new
+    enigma.stubs(:user_input).returns(["./text/test_encrypted.txt", "./text/test_cracked.txt"])
+    enigma.crack_runner
+
+    expected = enigma.read_txt("./text/test_decrypted.txt")[0]
+    assert_equal expected, enigma.cracked_details[:decryption]
+  end
+
+  def test_for_me
+    enigma = Enigma.new
+    expected = {:encryption=>"reuv", :key=>"12345", :date=>"190420"}
+    assert_equal expected, enigma.encrypt(" end", "12345")
+    expected = {:encryption=>"x ev", :key=>"99999", :date=>"190420"}
+    assert_equal expected, enigma.encrypt(" end", "99999")
+    expected = {:encryption=>"gson", :key=>"01010", :date=>"190420"}
+    assert_equal expected, enigma.encrypt(" end", "01010")
+    expected = {:encryption=>"ktsp", :key=>"86593", :date=>"190420"}
+    assert_equal expected, enigma.encrypt(" end", "86593")
+
+    expected = {:encryption => "khlrvelireuafygwstpey i jca ks,rsnkrkhlruocjrcherdheueg x  zwygnsn rkogwed", :key => "12345", :date => "190420"}
+    assert_equal expected, enigma.encrypt("the deer enjoy eating biscuits, and the cows can dance if they want to end", "12345")
   end
 
 end

@@ -1,6 +1,9 @@
+require './lib/alpha_num'
+require './lib/shift_gen'
+require './lib/crack'
 class EncryptionAlgorithm
 
-  attr_reader :message, :alpha_num, :shift_gen
+  attr_reader :message, :alpha_num, :shift_gen, :crack
   def initialize
     @message = []
     couple
@@ -9,6 +12,7 @@ class EncryptionAlgorithm
   def couple
     @alpha_num = AlphaNum.new
     @shift_gen = ShiftGen.new
+    @crack = Crack.new
   end
 
   def split_characters(message)
