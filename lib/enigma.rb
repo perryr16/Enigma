@@ -1,7 +1,6 @@
 require 'pry'
-# require_relative 'encryption_algorithm'
 
-class Enigma #< EncryptionAlgorithm
+class Enigma 
 
   attr_reader :message,
               :encrypted_details,
