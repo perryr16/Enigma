@@ -3,10 +3,6 @@ class CrackAlgorithm
 
   include AlphaNumable
 
-
-  def initialize
-  end
-
   def delta_end(message)
     message = message[0] if message.is_a?(Array)
     delta_end = {}

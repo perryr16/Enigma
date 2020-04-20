@@ -10,12 +10,8 @@ class ShiftGen
     Date.today.strftime("%d%m%y").to_i
   end
 
-  def date_squared(date)
-    (date.to_i ** 2).digits[0..3].reverse
-  end
-
   def offsets(date)
-    date_squared = date_squared(date)
+    date_squared = (date.to_i ** 2).digits[0..3].reverse
     a_offset = date_squared[0]
     b_offset = date_squared[1]
     c_offset = date_squared[2]
