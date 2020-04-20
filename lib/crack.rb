@@ -1,7 +1,8 @@
-require './lib/enigma'
 require 'date'
-require './lib/shift_gen'
+require './lib/encryption_algorithm'
 require './lib/crack_algorithm'
+require './lib/shift_gen'
+require './lib/enigma'
 enigma = Enigma.new
 
 enigma.crack_runner

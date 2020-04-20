@@ -1,6 +1,5 @@
 require './lib/alpha_numable'
-require './lib/shift_gen'
-require './lib/crack_algorithm'
+
 class EncryptionAlgorithm
 
   include AlphaNumable
@@ -17,8 +16,8 @@ class EncryptionAlgorithm
 
   def to_numeric(message)
     split_characters(message).map do |letter|
-      if !a_one[letter].nil?
-         a_one[letter]
+      if !alpha_to_num[letter].nil?
+         alpha_to_num[letter]
       else
         letter
       end
@@ -57,8 +56,8 @@ class EncryptionAlgorithm
 
   def to_alpha(numbers)
     numbers.map do |num|
-      if !one_a[num].nil?
-         one_a[num]
+      if !num_to_alpha[num].nil?
+         num_to_alpha[num]
       else
         num
       end

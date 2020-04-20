@@ -2,9 +2,12 @@ require 'simplecov'
 SimpleCov.start
 require 'minitest/autorun'
 require 'minitest/pride'
-require './lib/encryption_algorithm'
-require './lib/enigma'
 require 'mocha/minitest'
+
+require './lib/encryption_algorithm'
+require './lib/crack_algorithm'
+require './lib/shift_gen'
+require './lib/enigma'
 
 require 'pry'
 
@@ -23,7 +26,6 @@ class EnigmaTest < Minitest::Test
     assert_equal expected, enigma.encrypt("abcd!!!", "12345", "130591")
 
     expected = {:encryption => "sbjv", :key=>"12345", :date=>"170420"}
-    # assert_equal expected, enigma.encrypt("abcd", "12345")
     assert_equal "sbjv", enigma.encrypt("abcd", "12345")[:encryption]
     assert_equal true, enigma.encrypt("abcd", "12345")[:key].length == 5
     assert_equal true, enigma.encrypt("abcd", "12345")[:date].length == 6
@@ -49,7 +51,6 @@ class EnigmaTest < Minitest::Test
     enigma.shift_gen.stubs(:today).returns("170420")
     expected = {:decryption=>"abcd", :key=>"12345", :date=>"170420"}
     assert_equal expected, enigma.decrypt("sbjv", "12345")
-
   end
 
   def test_it_writes_to_file
@@ -62,8 +63,6 @@ class EnigmaTest < Minitest::Test
     expected = enigma.read_txt(filepath)[0]
     assert_equal expected, message.downcase
   end
-
-
 
   def test_encryption_runner
 
@@ -97,7 +96,7 @@ class EnigmaTest < Minitest::Test
   def test_for_me
     enigma = Enigma.new
     enigma.shift_gen.stubs(:today).returns("190420")
-    
+
     expected = {:encryption=>"reuv", :key=>"12345", :date=>"190420"}
     assert_equal expected, enigma.encrypt(" end", "12345")
     expected = {:encryption=>"x ev", :key=>"99999", :date=>"190420"}

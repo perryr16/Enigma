@@ -24,20 +24,12 @@ class Shif_genTest < Minitest::Test
     assert_equal 231155, shift_gen.today
   end
 
-  def test_date_squared
-    shift_gen = ShiftGen.new
-
-    Date.stubs(:today).returns(Date.new(1991, 05, 13))
-    #9281
-    assert_equal [9,2,8,1], shift_gen.date_squared(shift_gen.today)
-  end
 
   def test_offests
     shift_gen = ShiftGen.new
 
     Date.stubs(:today).returns(Date.new(1991, 05, 13))
     #9281
-    date_squared = shift_gen.date_squared(shift_gen.today)
     date = shift_gen.today
     assert_equal 9, shift_gen.offsets(date)[0]
     assert_equal 2, shift_gen.offsets(date)[1]
@@ -72,6 +64,5 @@ class Shif_genTest < Minitest::Test
     assert_equal 10, shift_gen.c_shift
     assert_equal 21, shift_gen.d_shift
   end
-
 
 end
