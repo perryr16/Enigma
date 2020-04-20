@@ -94,7 +94,7 @@ class CrackAlgorithmAlgorithmTest < Minitest::Test
                 "p"=>15, "q"=>16, "r"=>17, "s"=>18, "t"=>19, "u"=>20, "v"=>21,
                 "w"=>22, "x"=>23, "y"=>24, "z"=>25, " "=>26}
                 # binding.pry
-    assert_equal expected, crack.a_one
+    assert_equal expected, crack.alpha_to_num
   end
 
   def test_it_creaters_a_hash_of_numeric_to_alpha

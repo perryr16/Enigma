@@ -10,10 +10,10 @@ class CrackAlgorithm
   def delta_end(message)
     message = message[0] if message.is_a?(Array)
     delta_end = {}
-    delta_end[:space] = (a_one[message[-4]] - 26) % 27
-    delta_end[:e] = (a_one[message[-3]] - 4) % 27
-    delta_end[:n] = (a_one[message[-2]] - 13) % 27
-    delta_end[:d] = (a_one[message[-1]] - 3) % 27
+    delta_end[:space] = (alpha_to_num[message[-4]] - 26) % 27
+    delta_end[:e] = (alpha_to_num[message[-3]] - 4) % 27
+    delta_end[:n] = (alpha_to_num[message[-2]] - 13) % 27
+    delta_end[:d] = (alpha_to_num[message[-1]] - 3) % 27
     delta_end
   end
 

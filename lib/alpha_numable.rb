@@ -1,6 +1,6 @@
 module AlphaNumable
 
-  def a_one
+  def alpha_to_num
     alpha = ("a".."z").to_a << " "
     numeric = (0..26).to_a
     Hash[alpha.zip(numeric)]
