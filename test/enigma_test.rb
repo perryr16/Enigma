@@ -90,10 +90,10 @@ class EnigmaTest < Minitest::Test
 
   def test_crack_runner
     enigma =  Enigma.new
-    enigma.stubs(:user_input).returns(["./text/test_encrypted.txt", "./text/test_cracked.txt"])
+    enigma.stubs(:user_input).returns(["./text/test_encrypted.txt", "./text/test_cracked.txt", "190420"])
     enigma.crack_runner
 
-    expected = enigma.read_txt("./text/test_decrypted.txt")[0]
+    expected = enigma.read_txt("./text/test_cracked.txt")[0]
     assert_equal expected, enigma.cracked_details[:decryption]
   end
 
