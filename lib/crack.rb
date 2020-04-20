@@ -7,6 +7,7 @@ class Crack
   end
 
   def delta_end(message)
+    message = message[0] if message.is_a?(Array)
     delta_end = {}
     delta_end[:space] = (@alpha_num.a_one[message[-4]] - 26) % 27
     delta_end[:e] = (@alpha_num.a_one[message[-3]] - 4) % 27
@@ -29,6 +30,7 @@ class Crack
     possible_keys = []
     index = 0
     loop do
+      break if offset[offset_position].nil?
       possible_key = (crack_shift(message)[letter_sym] - offset[offset_position]) + 27*index  #23
       break if possible_key > 99
       possible_keys << possible_key.to_s.rjust(2, "0") if possible_key > 0
@@ -40,7 +42,7 @@ class Crack
   def a_keys(message, date)
     all_possible_keys(message, date, :a, 0)
   end
-  
+
   def the_key(message, date, letter_sym, offset_position, first_digit)
     all_possible_keys(message, date, letter_sym, offset_position).find do |key|
       key[0] == first_digit

@@ -84,6 +84,7 @@ class CrackTest < Minitest::Test
     assert_equal "99999", crack.cracked_key("x ev", "190420")
     assert_equal "01010", crack.cracked_key("gson", "190420")
     assert_equal "86593", crack.cracked_key("ktsp", "190420")
+    assert_equal "12345", crack.cracked_key("khlrvelireuafygwstpey i jca ks,rsnkrkhlruocjrcherdheueg x  zwygnsn rkogwed", "190420")
   end
 
 end
